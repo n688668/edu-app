@@ -12,12 +12,12 @@ import {
 import { getFirestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyClkrO_PRS_g5HIXjJBLQe9wp0qCK22ee0',
-  authDomain: 'my-edu-app-aab27.firebaseapp.com',
-  projectId: 'my-edu-app-aab27',
-  storageBucket: 'my-edu-app-aab27.firebasestorage.app',
-  messagingSenderId: '402908792532',
-  appId: '1:402908792532:web:e55d3a9bc165bce5631d41',
+  apiKey: 'AIzaSyBhLuJLNoIvDT7JaUEn0GFvEwlCnTKN5kA',
+  authDomain: 'nuxtabc.firebaseapp.com',
+  projectId: 'nuxtabc',
+  storageBucket: 'nuxtabc.firebasestorage.app',
+  messagingSenderId: '1011579411756',
+  appId: '1:1011579411756:web:cf5b870d224bf91dae6089',
 }
 
 const app = initializeApp(firebaseConfig)

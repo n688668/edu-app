@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "nuxtabc",
+    "kidskids": "nuxtabc"
+  },
+  "targets": {},
+  "etags": {}
+}

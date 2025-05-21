@@ -1,19 +1,50 @@
 <script setup lang="ts">
+import confetti from 'canvas-confetti'
+
+useHead({
+  title: 'Bé Học Vui',
+})
+
 const learningItems = [
   { title: 'Học tiếng Việt', icon: '🅰️', path: '/learn-vietnamese' },
   { title: 'Học tiếng Anh', icon: '🔤', path: '/learn-english' },
   { title: 'Học Toán', icon: '➗', path: '/learn-math' },
   { title: 'Đếm số', icon: '🔢', path: '/counting' },
   { title: 'So sánh', icon: '⚖️', path: '/comparison' },
-  { title: 'Màu sắc', icon: '🎨', path: '/colors' },
   { title: 'Động vật', icon: '🐶', path: '/animals' },
   { title: 'Thực vật', icon: '🌱', path: '/plants' },
-  { title: 'Học lễ', icon: '🎎', path: '/manners' },
   { title: 'Kỹ năng sống', icon: '🧠', path: '/life-skills' },
 ]
 
+function launchConfetti() {
+  const duration = 3 * 1000
+  const animationEnd = Date.now() + duration
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 }
+
+  const interval = setInterval(() => {
+    const timeLeft = animationEnd - Date.now()
+
+    if (timeLeft <= 0) {
+      clearInterval(interval)
+      return
+    }
+
+    const particleCount = 50 * (timeLeft / duration)
+    // since particles fall down, start them at random x positions
+    confetti({
+      ...defaults,
+      particleCount,
+      origin: {
+        x: Math.random(),
+        y: Math.random() * 0.6,
+      },
+    })
+  }, 250)
+}
+
 function sayHi() {
-  alert('Chào bé! Cùng chơi và học nhé!')
+  // alert('Chào bé! Cùng chơi và học nhé!')
+  launchConfetti()
 }
 </script>
 
@@ -21,7 +52,7 @@ function sayHi() {
   <div class="min-h-screen bg-gradient-to-b from-pink-100 to-yellow-100 p-6">
     <div class="max-w-2xl mx-auto text-center">
       <h1 class="text-4xl md:text-5xl font-bold text-pink-600 mb-4">
-        🎈 Chào bé!
+        🎈 Chào Rô!
       </h1>
       <p class="text-lg text-gray-700 mb-6">
         Cùng khám phá những điều thú vị nào!
@@ -30,8 +61,8 @@ function sayHi() {
       <div class="grid grid-cols-2 gap-6">
         <div
           v-for="item in learningItems"
-          :key="item.title"
-          class="bg-white rounded-2xl shadow-lg p-4 hover:scale-105 transition-transform duration-300"
+          :key="`rhTNo${item.title}`"
+          class="bg-white rounded-2xl shadow-lg p-4 hover:scale-105 transition-transform duration-300 cursor-pointer"
           @click="navigateTo({ path: item.path })"
         >
           <div class="text-5xl mb-2">
