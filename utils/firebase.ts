@@ -17,7 +17,7 @@ const firebaseConfig = {
   projectId: 'nuxtabc',
   storageBucket: 'nuxtabc.firebasestorage.app',
   messagingSenderId: '1011579411756',
-  appId: '1:1011579411756:web:cf5b870d224bf91dae6089',
+  appId: '1:1011579411756:web:436aab34073b6321ae6089',
 }
 
 const app = initializeApp(firebaseConfig)

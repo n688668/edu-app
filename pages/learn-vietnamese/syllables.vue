@@ -168,7 +168,7 @@ function playSound(text: string) {
         <div class="flex flex-wrap gap-2 mb-4">
           <button
             v-for="v in vowels"
-            :key="v"
+            :key="`QURpZ${v}`"
             class="w-20 h-20 rounded-full text-3xl font-bold shadow flex items-center justify-center transition-all duration-200" :class="[
               isSelected(v)
                 ? 'bg-yellow-300 scale-110 ring-4 ring-yellow-500'
@@ -190,7 +190,7 @@ function playSound(text: string) {
         <div class="flex flex-wrap gap-2 mb-4">
           <button
             v-for="c in consonants"
-            :key="c"
+            :key="`zqCSB${c}`"
             class="w-20 h-20 rounded-full text-3xl font-bold shadow flex items-center justify-center transition-all duration-200" :class="[
               isSelected(c)
                 ? 'bg-yellow-300 scale-110 ring-4 ring-yellow-500'

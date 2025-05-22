@@ -5,9 +5,10 @@ useHead({
   title: 'Tập viết chữ',
 })
 
-const alphabet = 'AĂÂBCDĐEÊGHIKLMNOÔƠPQRSTUƯVXY'.split('')
-const selectedChar = ref('A')
+const alphabet = 'AĂÂBCDĐEÊGHIKLMNOÔƠPQRSTUƯVXYaăâbcdđeêghiklmnôơpqrstưvxyabcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'.split('')
 
+const selectedChar = ref('A')
+const showCanvas = ref(false)
 const canvasRef = ref<HTMLCanvasElement | null>(null)
 let ctx: CanvasRenderingContext2D | null = null
 let isDrawing = false
@@ -25,6 +26,7 @@ onMounted(() => {
 
 function selectChar(char: string) {
   selectedChar.value = char
+  showCanvas.value = true
   clearCanvas()
 }
 
@@ -84,6 +86,10 @@ function getColorClass(char: string) {
   const index = char.charCodeAt(0) % colors.length
   return colors[index]
 }
+
+function goBackToAlphabet() {
+  showCanvas.value = false
+}
 </script>
 
 <template>
@@ -93,7 +99,7 @@ function getColorClass(char: string) {
     </h1>
 
     <!-- Danh sách chữ cái -->
-    <div class="flex flex-wrap justify-center gap-3 mb-6">
+    <div v-if="!showCanvas" class="flex flex-wrap justify-center gap-3 mb-6">
       <button
         v-for="char in alphabet"
         :key="`vPDFa${char}`"
@@ -106,14 +112,20 @@ function getColorClass(char: string) {
     </div>
 
     <!-- Chữ đang chọn -->
-    <div class="text-center mb-4">
+    <div v-show="showCanvas" class="text-center mb-4">
       <h2 class="text-2xl font-bold text-yellow-700">
         Viết chữ: <span class="text-5xl">{{ selectedChar }}</span>
       </h2>
+      <button
+        class="mt-4 px-6 py-3 bg-blue-400 hover:bg-blue-500 text-white rounded-full font-bold shadow-md text-xl"
+        @click="goBackToAlphabet"
+      >
+        Quay lại Bảng chữ cái
+      </button>
     </div>
 
     <!-- Khung viết -->
-    <div class="flex justify-center">
+    <div v-show="showCanvas" class="flex justify-center">
       <canvas
         ref="canvasRef"
         width="400"
@@ -130,7 +142,7 @@ function getColorClass(char: string) {
     </div>
 
     <!-- Nút xóa -->
-    <div class="flex justify-center mt-6">
+    <div v-show="showCanvas" class="flex justify-center mt-6">
       <button
         class="px-6 py-3 bg-red-400 hover:bg-red-500 text-white text-xl rounded-full font-bold shadow-md transition"
         @click="clearCanvas"

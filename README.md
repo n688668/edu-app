@@ -88,3 +88,37 @@ firebase login
 firebase init
 firebase deploy
 ```
+
+# firebase.json default site redirect to kidskids site
+```
+firebase deploy --only hosting:nuxtabc
+
+{
+  "firestore": {
+    "database": "(default)",
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "hosting": {
+    "public": ".output/public",
+    "redirects": [
+      {
+        "source": "/**",
+        "destination": "https://kidskids.web.app",
+        "type": 301
+      }
+    ],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
+```

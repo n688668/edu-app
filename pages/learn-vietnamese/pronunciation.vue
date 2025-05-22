@@ -6,14 +6,14 @@ useHead({
   title: 'Học Tiếng Việt',
 })
 
-const isLoading = ref(true)
-
 function shuffleOptions<T>(array: T[]): T[] {
   return array
     .map(value => ({ value, sort: Math.random() }))
     .sort((a, b) => a.sort - b.sort)
     .map(({ value }) => value)
 }
+
+const isLoading = ref(true)
 
 const prompt = `
 Hãy tạo một mảng JSON gồm 20 từ ngẫu nhiên tiếng Việt dành cho trẻ em, mỗi phần tử có dạng:
@@ -81,6 +81,11 @@ function nextWord() {
   selectedOption.value = null
   isCorrect.value = null
   currentIndex.value = (currentIndex.value + 1) % simpleWords.value.length
+
+  // Kiểm tra nếu hết lượt, tải lại mảng dữ liệu mới
+  if (currentIndex.value === 0) {
+    fetchData()
+  }
 }
 
 function playAudio(src: string) {
@@ -105,7 +110,7 @@ function playAudio(src: string) {
         🔈Phân biệt âm vần
       </h1>
 
-      <p class="text-8xl font-extrabold mb-10 text-yellow-600 drop-shadow-sm">
+      <p class="text-8xl font-bold mb-10 text-yellow-600 drop-shadow-sm">
         {{ currentWord.word }}
       </p>
 

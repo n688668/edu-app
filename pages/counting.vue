@@ -7,7 +7,7 @@ useHead({
 })
 
 // Danh sách số
-const numbers = ref([])
+const numbers: any = ref([])
 const clickedNumbers = ref(new Set())
 const correctNumbers = ref(new Set())
 const wrongNumbers = ref(new Set())
@@ -55,15 +55,15 @@ onMounted(() => {
 
 <template>
   <div class="min-h-screen bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-100 p-6">
-    <h1 class="text-4xl font-extrabold text-purple-700 mb-8 text-center select-none">
+    <h1 class="text-4xl font-bold text-purple-700 mb-8 text-center select-none">
       🔢 Đếm Số Từ 1 đến 100
     </h1>
 
     <div class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-6">
       <button
         v-for="n in numbers"
-        :key="n"
-        class="w-20 h-20 sm:w-24 sm:h-24 rounded-full shadow-md font-extrabold flex items-center justify-center select-none text-5xl transition-all duration-300 ease-in-out active:scale-150" :class="[
+        :key="`$KtaIN${n}`"
+        class="w-20 h-20 sm:w-24 sm:h-24 rounded-full shadow-md font-bold flex items-center justify-center select-none text-5xl transition-all duration-300 ease-in-out active:scale-150" :class="[
           correctNumbers.has(n)
             ? 'bg-green-400 text-white scale-110'
             : wrongNumbers.has(n)
