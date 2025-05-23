@@ -122,3 +122,8 @@ firebase deploy --only hosting:nuxtabc
   }
 }
 ```
+
+# Fork
+```
+https://chatgpt.com/c/682fec25-e1ec-8007-ab10-c47a97e4b2df
+```
