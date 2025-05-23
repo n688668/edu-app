@@ -1,5 +1,4 @@
 <script setup lang="ts">
-
 useHead({
   title: 'Học Tiếng Anh',
 })
@@ -30,6 +29,7 @@ const items = [
     path: '/learn-english/word-match',
     icon: '🧩',
   },
+  { title: 'Game bong bóng', icon: '🫧', path: '/learn-english/game-bubble' },
 ]
 </script>
 

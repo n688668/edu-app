@@ -1,42 +1,11 @@
-<script setup>
+<script setup lang="ts">
 import confetti from 'canvas-confetti'
 
 useHead({
   title: 'Game Chọn Thẻ',
 })
 
-const baseEmojis = [
-  '🍉',
-  '🍇',
-  '🚗',
-  '🚌',
-  '🐶',
-  '🐱',
-  '🦁',
-  '🐯',
-  '🌳',
-  '🌸',
-  '🍔',
-  '🍕',
-  '⚽',
-  '🏀',
-  '🚀',
-  '🛸',
-  '🎸',
-  '🎻',
-  '🎨',
-  '🖌️',
-  '🚲',
-  '✈️',
-  '🐸',
-  '🐵',
-  '🐧',
-  '🐤',
-  '🐢',
-  '🍓',
-  '🍎',
-  '🍌',
-]
+const baseEmojis = useEmoji()
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -46,8 +15,8 @@ function shuffle(array) {
   return array
 }
 
-const cards = ref([])
-const selected = ref([])
+const cards: any = ref([])
+const selected: any = ref([])
 const matchedIds = ref(new Set())
 const showCongrats = ref(false)
 const revealedIds = ref(new Set())
@@ -114,18 +83,7 @@ onMounted(() => {
       🃏 Chọn Thẻ
     </h1>
 
-    <div v-if="showCongrats" class="text-center font-bold text-green-600 mb-6">
-      <div class="text-3xl mb-6">
-        🎉 Chúc mừng bé! 🎉
-      </div>
-
-      <button
-        class="bg-green-500 text-white text-3xl px-8 py-4 rounded-full shadow-lg hover:bg-green-600 transition-all"
-        @click="resetGame"
-      >
-        Chơi lại
-      </button>
-    </div>
+    <SuccessMessage v-if="showCongrats" @click="resetGame" />
 
     <div v-else class="grid grid-cols-3 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
       <button

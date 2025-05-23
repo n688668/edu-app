@@ -9,6 +9,7 @@ const items = [
   { title: 'Trừ đơn giản', icon: '➖', path: '/learn-math/subtraction' },
   { title: 'So sánh số lượng', icon: '⚖️', path: '/learn-math/comparison' },
   { title: 'Hình dạng cơ bản', icon: '🔺', path: '/learn-math/shapes' },
+  { title: 'Game bong bóng', icon: '🫧', path: '/learn-math/game-bubble' },
 ]
 </script>
 

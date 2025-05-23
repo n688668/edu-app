@@ -3,33 +3,6 @@ useHead({
   title: 'Phân Biệt Từ (Word Match)',
 })
 
-// const wordPairs = ref([
-//   {
-//     icon: '🍎',
-//     answer: 'apple',
-//     options: ['banana', 'apple', 'grape'],
-//     result: null,
-//   },
-//   {
-//     icon: '🐶',
-//     answer: 'dog',
-//     options: ['cat', 'rabbit', 'dog'],
-//     result: null,
-//   },
-//   {
-//     icon: '🚗',
-//     answer: 'car',
-//     options: ['train', 'plane', 'car'],
-//     result: null,
-//   },
-//   {
-//     icon: '☀️',
-//     answer: 'sun',
-//     options: ['moon', 'star', 'sun'],
-//     result: null,
-//   },
-// ])
-
 const isLoading = ref(true)
 
 const prompt = `
