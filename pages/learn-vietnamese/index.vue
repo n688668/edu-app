@@ -26,6 +26,7 @@ const items = [
     icon: '📚',
     path: '/learn-vietnamese/vocabulary',
   },
+  { title: 'Game bong bóng', icon: '🫧', path: '/learn-vietnamese/game-bubble' },
 ]
 </script>
 

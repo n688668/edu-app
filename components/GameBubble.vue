@@ -1,18 +1,21 @@
-<script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+<script lang="ts" setup>
+const props = defineProps<{
+  data?: any
+}>()
 
-const canvas = ref(null)
+const canvas = ref<HTMLCanvasElement | null>(null)
 const gameOver = ref(false)
-const canvasHeight = ref(window.innerHeight - 100)
+const canvasHeight = ref(0)
 
-const alphabet = 'AĂÂBCDĐEÊGHIKLMNOÔƠPQRSTUƯVXY'.split('')
+let ctx: CanvasRenderingContext2D
+let width: number, height: number
+let bubbles: any[] = []
+let particles: any[] = []
+let alphabet: string[] = []
 let currentIndex = 0
-let ctx, width, height
-let bubbles = []
-let particles = []
 const colors = ['#ff6b6b', '#6bcBef', '#ffe66d', '#48dbfb', '#1dd1a1', '#f368e0']
 
-function createBubble(letter) {
+function createBubble(letter: string) {
   const angle = Math.random() * Math.PI * 2
   const speed = 10 + Math.random() * 5
   const normalSpeed = 0.5 + Math.random() * 1.5
@@ -36,7 +39,7 @@ function createBubble(letter) {
   }
 }
 
-function createParticles(x, y, color) {
+function createParticles(x: number, y: number, color: string) {
   for (let i = 0; i < 12; i++) {
     const angle = Math.random() * Math.PI * 2
     const speed = 2 + Math.random() * 3
@@ -51,7 +54,7 @@ function createParticles(x, y, color) {
   }
 }
 
-function drawBubble(b) {
+function drawBubble(b: any) {
   if (b.isPopped)
     return
   const gradient = ctx.createRadialGradient(b.x - b.radius * 0.3, b.y - b.radius * 0.3, b.radius * 0.1, b.x, b.y, b.radius)
@@ -125,8 +128,8 @@ function animate() {
   requestAnimationFrame(animate)
 }
 
-function handleClick(e) {
-  const rect = canvas.value.getBoundingClientRect()
+function handleClick(e: MouseEvent) {
+  const rect = canvas.value!.getBoundingClientRect()
   const clickX = e.clientX - rect.left
   const clickY = e.clientY - rect.top
 
@@ -156,9 +159,11 @@ function restartGame() {
 }
 
 onMounted(() => {
-  ctx = canvas.value.getContext('2d')
-  width = canvas.value.width = window.innerWidth
-  height = canvas.value.height = canvasHeight.value
+  canvasHeight.value = window.innerHeight - 100
+  alphabet = props?.data?.split('') || []
+  ctx = canvas.value!.getContext('2d')!
+  width = canvas.value!.width = window.innerWidth
+  height = canvas.value!.height = canvasHeight.value
   bubbles = alphabet.map(createBubble)
   window.addEventListener('click', handleClick)
   animate()
@@ -172,14 +177,8 @@ onUnmounted(() => {
 <template>
   <div class="relative overflow-hidden bg-gradient-to-br from-sky-100 via-blue-100 to-green-100" :style="{ height: `${canvasHeight}px` }">
     <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full" />
-    <div v-if="gameOver" class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-100 p-6 text-green-600">
-      <div class="text-4xl font-bold mb-4">
-        Hoàn thành rồi! 🎉
-      </div>
-      <button class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl text-xl shadow-lg" @click="restartGame">
-        Chơi lại
-      </button>
-    </div>
+
+    <SuccessMessage v-if="gameOver" message="Bé đã hoàn thành rồi!" class="absolute inset-0 flex flex-col items-center justify-center" @click="restartGame" />
   </div>
 </template>
 

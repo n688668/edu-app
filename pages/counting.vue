@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Howl } from 'howler'
-import { onMounted, ref } from 'vue'
 
 useHead({
   title: 'Đếm Số Từ 1 đến 100',
@@ -22,8 +21,20 @@ function shuffle(array) {
   return arr
 }
 
+const countNumbers = 100
+const isCompleted = ref(false)
+
+function resetGame() {
+  correctNumbers.value.clear()
+  wrongNumbers.value.clear()
+  clickedNumbers.value.clear()
+  currentExpected.value = 1
+  numbers.value = shuffle(Array.from({ length: countNumbers }, (_, i) => i + 1))
+  isCompleted.value = false
+}
+
 function playSound(number) {
-  if (correctNumbers.value.has(number))
+  if (correctNumbers.value.has(number) || isCompleted.value)
     return
 
   if (number === currentExpected.value) {
@@ -31,11 +42,13 @@ function playSound(number) {
     wrongNumbers.value.delete(number)
     clickedNumbers.value.add(number)
     currentExpected.value++
+    if (correctNumbers.value.size === countNumbers) {
+      isCompleted.value = true
+    }
   }
   else {
     if (!wrongNumbers.value.has(number)) {
       wrongNumbers.value.add(number)
-      // Sau 2 giây xóa khỏi danh sách sai
       setTimeout(() => {
         wrongNumbers.value.delete(number)
       }, 2000)
@@ -49,17 +62,19 @@ function playSound(number) {
 }
 
 onMounted(() => {
-  numbers.value = shuffle(Array.from({ length: 100 }, (_, i) => i + 1))
+  numbers.value = shuffle(Array.from({ length: countNumbers }, (_, i) => i + 1))
 })
 </script>
 
 <template>
   <div class="min-h-screen bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-100 p-6">
     <h1 class="text-4xl font-bold text-purple-700 mb-8 text-center select-none">
-      🔢 Đếm Số Từ 1 đến 100
+      🔢 Đếm Số Từ 1 đến {{ countNumbers }}
     </h1>
 
-    <div class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-6">
+    <SuccessMessage v-if="isCompleted" message="Bé đã đếm đúng hết số rồi!" @click="resetGame" />
+
+    <div v-else class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-8 gap-6">
       <button
         v-for="n in numbers"
         :key="`$KtaIN${n}`"
