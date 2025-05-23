@@ -9,52 +9,43 @@ const shapes = [
   {
     name: 'Circle',
     bgClass: 'bg-pink-400',
-    sound: '/sounds/circle.mp3',
   },
   {
     name: 'Square',
     bgClass: 'bg-blue-400',
-    sound: '/sounds/square.mp3',
   },
   {
     name: 'Triangle',
     bgClass: 'bg-green-400',
-    sound: '/sounds/triangle.mp3',
   },
   {
     name: 'Star',
     bgClass: 'bg-yellow-400',
-    sound: '/sounds/star.mp3',
   },
   {
     name: 'Diamond',
     bgClass: 'bg-purple-400',
-    sound: '/sounds/diamond.mp3',
   },
   {
     name: 'Ellipse',
     bgClass: 'bg-red-400',
-    sound: '/sounds/ellipse.mp3',
   },
   {
     name: 'Trapezoid',
     bgClass: 'bg-indigo-400',
-    sound: '/sounds/trapezoid.mp3',
   },
   {
     name: 'Pentagon',
     bgClass: 'bg-teal-400',
-    sound: '/sounds/pentagon.mp3',
   },
   {
     name: 'Hexagon',
     bgClass: 'bg-orange-400',
-    sound: '/sounds/hexagon.mp3',
   },
 ]
 
-function playSound(src) {
-  const sound = new Howl({ src: [src] })
+function playSound() {
+  const sound = new Howl({ src: ['/sounds/sharp-pop.mp3'], volume: 1.0 })
   sound.play()
 }
 </script>
@@ -70,7 +61,7 @@ function playSound(src) {
         v-for="shape in shapes"
         :key="`jJfGZ${shape.name}`"
         class="bg-white rounded-3xl shadow-lg p-6 flex flex-col items-center cursor-pointer transform transition active:scale-110"
-        @click="playSound(shape.sound)"
+        @click="playSound()"
       >
         <div :class="shape.bgClass" class="w-24 h-24 flex justify-center items-center rounded-xl mb-4">
           <svg v-if="shape.name === 'Circle'" viewBox="0 0 24 24" class="w-32 h-32">

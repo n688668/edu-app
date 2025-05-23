@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import confetti from 'canvas-confetti'
+import { Howl } from 'howler'
 
 useHead({
   title: 'Game Chọn Thẻ Giống Nhau 2',
 })
+
+let tapSound: Howl | null = null
 
 const baseEmojis = useEmoji()
 
@@ -42,6 +45,10 @@ function selectCard(card) {
     if (selected.value.length === 2) {
       const [a, b] = selected.value
       if (a.emoji === b.emoji) {
+        if (!tapSound) {
+          tapSound = new Howl({ src: ['/sounds/bubble-pop.mp3'], volume: 1.0 })
+        }
+        tapSound.play()
         confetti()
         matchedIds.value.add(a.id)
         matchedIds.value.add(b.id)

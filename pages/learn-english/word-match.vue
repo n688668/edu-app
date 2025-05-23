@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { Howl } from 'howler'
+
 useHead({
   title: 'Phân Biệt Từ (Word Match)',
 })
+
+let correctSound: Howl | null = null
+let wrongSound: Howl | null = null
 
 const isLoading = ref(true)
 
@@ -42,8 +47,26 @@ function selectOption(index: number, option: string) {
   checkAnswer(index, option)
 }
 
-function checkAnswer(index: any, selected: any) {
-  wordPairs.value[index].result = selected === wordPairs.value[index].answer ? 'correct' : 'wrong'
+// function checkAnswer(index: any, selected: any) {
+//   wordPairs.value[index].result = selected === wordPairs.value[index].answer ? 'correct' : 'wrong'
+// }
+function checkAnswer(index: number, selected: string) {
+  const isCorrect = selected === wordPairs.value[index].answer
+  wordPairs.value[index].result = isCorrect ? 'correct' : 'wrong'
+
+  // Phát âm thanh
+  if (isCorrect) {
+    if (!correctSound) {
+      correctSound = new Howl({ src: ['/sounds/correct.mp3'], volume: 1.0 })
+    }
+    correctSound.play()
+  }
+  else {
+    if (!wrongSound) {
+      wrongSound = new Howl({ src: ['/sounds/wrong.mp3'], volume: 1.0 })
+    }
+    wrongSound.play()
+  }
 }
 </script>
 

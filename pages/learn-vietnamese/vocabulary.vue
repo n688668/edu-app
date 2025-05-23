@@ -12,7 +12,6 @@ Hãy tạo một mảng JSON gồm 20 từ ngẫu nhiên tiếng Việt dành ch
 {
   "text": "từ ngẫu nhiên",
   "icon": "emoji phù hợp",
-  "sound": "/sounds/vietnamese/tên_file.mp3"
 }
 Chỉ trả về mảng JSON. Các từ nên dễ hiểu với trẻ từ 3-6 tuổi.
 `
@@ -36,10 +35,8 @@ onMounted(() => {
   fetchData()
 })
 
-function playSound(word: any) {
-  const sound = new Howl({
-    src: [word.sound],
-  })
+function playSound() {
+  const sound = new Howl({ src: ['/sounds/sharp-pop.mp3'], volume: 1.0 })
   sound.play()
 }
 </script>
@@ -58,7 +55,7 @@ function playSound(word: any) {
           v-for="word in vocabulary"
           :key="`EtYAf${word.text}`"
           class="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center active:scale-110 transition cursor-pointer"
-          @click="playSound(word)"
+          @click="playSound()"
         >
           <div class="text-5xl mb-2">
             {{ word.icon }}

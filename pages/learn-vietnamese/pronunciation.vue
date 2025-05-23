@@ -6,6 +6,9 @@ useHead({
   title: 'Học Tiếng Việt',
 })
 
+let correctSound: Howl | null = null
+let wrongSound: Howl | null = null
+
 function shuffleOptions<T>(array: T[]): T[] {
   return array
     .map(value => ({ value, sort: Math.random() }))
@@ -21,7 +24,6 @@ Hãy tạo một mảng JSON gồm 20 từ ngẫu nhiên tiếng Việt dành ch
   "word": "từ ngẫu nhiên",
   "correct": "vần đúng cần chọn",
   "options": ["vần sai", "vần đúng"],
-  "audio": "/audio/tên_file.mp3"
 }
 Chỉ trả về mảng JSON. Các vần nên phổ biến và dễ hiểu với trẻ từ 3-6 tuổi. Đảm bảo mỗi phần tử có một vần đúng duy nhất và một vần gây nhiễu hợp lý.
 `
@@ -57,8 +59,6 @@ const currentWord = computed(() => {
   }
 })
 
-let sound: Howl | null = null
-
 function checkAnswer(option: string) {
   if (selectedOption.value)
     return
@@ -66,7 +66,10 @@ function checkAnswer(option: string) {
   isCorrect.value = option === currentWord.value.correct
 
   if (isCorrect.value) {
-    playAudio(currentWord.value.audio)
+    if (!correctSound) {
+      correctSound = new Howl({ src: ['/sounds/correct.mp3'], volume: 1.0 })
+    }
+    correctSound.play()
     confetti({
       particleCount: 150,
       angle: 90,
@@ -74,6 +77,12 @@ function checkAnswer(option: string) {
       origin: { x: 0.5, y: 0.4 },
       colors: ['#ff0', '#f0f', '#0ff', '#0f0', '#f00'],
     })
+  }
+  else {
+    if (!wrongSound) {
+      wrongSound = new Howl({ src: ['/sounds/wrong.mp3'], volume: 1.0 })
+    }
+    wrongSound.play()
   }
 }
 
@@ -86,18 +95,6 @@ function nextWord() {
   if (currentIndex.value === 0) {
     fetchData()
   }
-}
-
-function playAudio(src: string) {
-  if (sound) {
-    sound.stop()
-    sound.unload()
-  }
-  sound = new Howl({
-    src: [src],
-    volume: 1.0,
-  })
-  sound.play()
 }
 </script>
 

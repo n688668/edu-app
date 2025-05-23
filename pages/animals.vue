@@ -13,7 +13,6 @@ Hãy tạo một mảng JSON gồm 20 từ ngẫu nhiên tiếng Anh chủ đề
 {
   "name": "từ động vật ngẫu nhiên bằng tiếng Anh",
   "emoji": "emoji phù hợp",
-  "sound": "/sounds/file_name.mp3"
 }
 Chỉ trả về mảng JSON. Các từ nên dễ hiểu với trẻ từ 3-6 tuổi.
 `
@@ -49,8 +48,8 @@ function fireConfetti(el) {
   })
 }
 
-function playSound(item: any, event: any) {
-  const sound = new Howl({ src: [item.sound] })
+function playSound(event: any) {
+  const sound = new Howl({ src: ['/sounds/sharp-pop.mp3'], volume: 1.0 })
   sound.play()
 
   const el = event.currentTarget
@@ -72,7 +71,7 @@ function playSound(item: any, event: any) {
           v-for="(animal, index) in animals || []"
           :key="`MQvfN${index}`"
           class="bg-white p-6 rounded-3xl shadow-lg cursor-pointer flex flex-col items-center justify-center w-32 h-32 active:scale-110 transform transition-all duration-300"
-          @click="(e) => playSound(animal, e)"
+          @click="(e) => playSound(e)"
         >
           <div class="text-7xl mb-2 select-none">
             {{ animal.emoji }}

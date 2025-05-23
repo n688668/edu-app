@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import confetti from 'canvas-confetti'
+import { Howl } from 'howler'
 
 useHead({
   title: 'Trừ đơn giản',
 })
+
+let correctSound: Howl | null = null
+let wrongSound: Howl | null = null
 
 const items = ['🍎', '🦆', '🚕', '🍩', '🎁', '🐱', '🧸', '🍌', '🌸', '🦋']
 
@@ -50,6 +54,10 @@ onMounted(() => {
 function checkAnswer(option: number) {
   selectedOption.value = option
   if (option === currentItem.value.result) {
+    if (!correctSound) {
+      correctSound = new Howl({ src: ['/sounds/correct.mp3'], volume: 1.0 })
+    }
+    correctSound.play()
     confetti({
       particleCount: 150,
       angle: 90,
@@ -67,6 +75,10 @@ function checkAnswer(option: number) {
     }, 1500)
   }
   else {
+    if (!wrongSound) {
+      wrongSound = new Howl({ src: ['/sounds/wrong.mp3'], volume: 1.0 })
+    }
+    wrongSound.play()
     feedback.value = '😢 Sai mất rồi, thử lại nha!'
     feedbackColor.value = 'text-red-500'
   }

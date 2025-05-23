@@ -36,11 +36,8 @@ onMounted(() => {
   fetchData()
 })
 
-function playSound(text: string, event: MouseEvent) {
-  const sound = new Howl({
-    src: [`/sounds/words/${text}.mp3`],
-    volume: 1.0,
-  })
+function playSound(event: MouseEvent) {
+  const sound = new Howl({ src: ['/sounds/sharp-pop.mp3'], volume: 1.0 })
   sound.play()
 
   // Lấy tọa độ click trên màn hình để tạo pháo bông tại đó
@@ -71,7 +68,7 @@ function playSound(text: string, event: MouseEvent) {
           v-for="word in simpleWords"
           :key="`CAMjm${word.text}`"
           class="bg-white rounded-2xl shadow-lg p-4 flex flex-col items-center cursor-pointer active:scale-110 transition-transform"
-          @click="(e) => playSound(word.text, e)"
+          @click="(e) => playSound(e)"
         >
           <div class="text-7xl mb-2">
             {{ word.emoji }}

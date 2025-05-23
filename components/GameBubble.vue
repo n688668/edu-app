@@ -1,7 +1,12 @@
 <script lang="ts" setup>
+import { Howl } from 'howler'
+
 const props = defineProps<{
   data?: any
 }>()
+
+let correctSound: Howl | null = null
+let wrongSound: Howl | null = null
 
 const canvas = ref<HTMLCanvasElement | null>(null)
 const gameOver = ref(false)
@@ -189,6 +194,13 @@ function animate() {
 }
 
 function handleClick(e: MouseEvent) {
+  if (!correctSound) {
+    correctSound = new Howl({ src: ['/sounds/tap.mp3'], volume: 1.0 })
+  }
+  if (!wrongSound) {
+    wrongSound = new Howl({ src: ['/sounds/sci-fi-bubble-pop.mp3'], volume: 1.0 })
+  }
+
   const rect = canvas.value!.getBoundingClientRect()
   const clickX = e.clientX - rect.left
   const clickY = e.clientY - rect.top
@@ -203,6 +215,7 @@ function handleClick(e: MouseEvent) {
         b.isPopped = true
         createParticles(b.x, b.y, b.color)
         b.popTime = Date.now()
+        correctSound.play()
         currentIndex++
         if (currentIndex >= alphabet.length) {
           gameOver.value = true
@@ -210,11 +223,13 @@ function handleClick(e: MouseEvent) {
       }
       else {
         // Hiệu ứng sai
+        wrongSound.play()
         b.isWrong = true
         b.wrongTimer = 120 // ~2 giây (60fps)
         const angle = Math.random() * Math.PI * 2
         b.dx = Math.cos(angle) * 5
         b.dy = Math.sin(angle) * 5
+        b.shakeStart = performance.now() // dùng để xử lý hiệu ứng nếu cần
       }
     }
   }

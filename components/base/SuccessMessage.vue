@@ -9,7 +9,7 @@ const props = defineProps<{
 const emit = defineEmits(['click'])
 
 const celebrateSound = new Howl({
-  src: ['/sounds/congrats.mp3'],
+  src: ['/sounds/success-fanfare-trumpets.mp3'],
 })
 
 function triggerCelebration() {

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Howl } from 'howler'
-
 useHead({
   title: 'Trò chơi Ghép Vần',
 })
@@ -138,14 +136,6 @@ function selectLetter(letter: string) {
 function isSelected(letter: string) {
   return selectedFirst.value === letter || selectedSecond.value === letter
 }
-
-function playSound(text: string) {
-  const sound = new Howl({
-    src: [`/sounds/syllables/${text}.mp3`],
-    volume: 1.0,
-  })
-  sound.play()
-}
 </script>
 
 <template>
@@ -215,12 +205,6 @@ function playSound(text: string) {
           {{ syllable }}
         </div>
         <div class="flex justify-center gap-4 mt-4">
-          <button
-            class="bg-green-500 hover:bg-green-600 text-white rounded-full px-6 py-2 text-lg font-semibold shadow"
-            @click="playSound(syllable)"
-          >
-            🔊 Nghe phát âm
-          </button>
           <button
             class="bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-full px-6 py-2 text-lg font-semibold shadow"
             @click="selectedFirst = ''; selectedSecond = ''"
