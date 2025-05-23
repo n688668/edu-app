@@ -5,38 +5,7 @@ useHead({
   title: 'Game Chọn Thẻ Giống Nhau 2',
 })
 
-const baseEmojis = [
-  '🍉',
-  '🍇',
-  '🚗',
-  '🚌',
-  '🐶',
-  '🐱',
-  '🦁',
-  '🐯',
-  '🌳',
-  '🌸',
-  '🍔',
-  '🍕',
-  '⚽',
-  '🏀',
-  '🚀',
-  '🛸',
-  '🎸',
-  '🎻',
-  '🎨',
-  '🖌️',
-  '🚲',
-  '✈️',
-  '🐸',
-  '🐵',
-  '🐧',
-  '🐤',
-  '🐢',
-  '🍓',
-  '🍎',
-  '🍌',
-]
+const baseEmojis = useEmoji()
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -46,8 +15,8 @@ function shuffle(array) {
   return array
 }
 
-const cards = ref([])
-const selected = ref([])
+const cards: any = ref([])
+const selected: any = ref([])
 const matchedIds = ref(new Set())
 const showCongrats = ref(false)
 
