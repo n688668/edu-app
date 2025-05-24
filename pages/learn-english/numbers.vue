@@ -71,7 +71,7 @@ function numToEnglish(n: number): string {
 const numbers = Array.from({ length: 101 }, (_, i) => ({
   label: String(i),
   text: numToEnglish(i),
-  sound: `/sounds/english/numbers/${i}.mp3`,
+  sound: `/sounds/english/numbers/en_num_${i}.mp3`,
   color: baseColors[i % baseColors.length],
 }))
 

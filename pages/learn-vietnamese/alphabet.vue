@@ -58,7 +58,7 @@ function letterToFilename(letter: string): string {
 function playSound(letter: string, event: MouseEvent) {
   const filename = letterToFilename(letter)
   const sound = new Howl({
-    src: [`/sounds/alphabet/vietnamese/${filename}.mp3`],
+    src: [`/sounds/vietnamese/alphabet/${filename}.mp3`],
   })
   sound.play()
 
