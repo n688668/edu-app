@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Howl } from 'howler'
-
 useHead({
   title: 'Từ Vựng Cơ Bản (English)',
 })
@@ -11,6 +9,7 @@ const prompt = `
 Hãy tạo một mảng JSON gồm 20 từ ngẫu nhiên tiếng Anh dành cho trẻ em, mỗi phần tử có dạng:
 {
   "text": "từ ngẫu nhiên",
+  "sound": "/sounds/english/words/ten-file-theo-text.mp3",
   "icon": "emoji phù hợp",
 }
 Chỉ trả về mảng JSON. Các từ nên dễ hiểu với trẻ từ 3-6 tuổi.
@@ -35,9 +34,19 @@ onMounted(() => {
   fetchData()
 })
 
-function playSound() {
-  const sound = new Howl({ src: ['/sounds/sharp-pop.mp3'], volume: 1.0 })
-  sound.play()
+async function playSound(event: MouseEvent, word: any) {
+  const { shootAtCursor } = useConfetti()
+  const { playFallback } = useFallbackSound()
+  const { tryPlay } = usePlayLocalIfExists()
+
+  // Bắn pháo bông
+  shootAtCursor(event)
+
+  if (await tryPlay(word.sound))
+    return
+
+  // Nếu thất bại, fallback
+  playFallback()
 }
 </script>
 
@@ -55,7 +64,7 @@ function playSound() {
           v-for="word in vocabulary"
           :key="`WaSAf${word.text}`"
           class="bg-white rounded-2xl shadow-md p-4 flex flex-col items-center active:scale-110 transition cursor-pointer"
-          @click="playSound()"
+          @click="(e) => playSound(e, word)"
         >
           <div class="text-5xl mb-2">
             {{ word.icon }}

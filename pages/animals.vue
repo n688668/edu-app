@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import confetti from 'canvas-confetti'
-import { Howl } from 'howler'
-
 useHead({
   title: 'Học Tên Các Loài Động Vật (Animals)',
 })
@@ -12,6 +9,7 @@ const prompt = `
 Hãy tạo một mảng JSON gồm 20 từ ngẫu nhiên tiếng Anh chủ đề động vật, mỗi phần tử có dạng:
 {
   "name": "từ động vật ngẫu nhiên bằng tiếng Anh",
+  "sound": "/sounds/vietnamese/words/ten-file-theo-text.mp3",
   "emoji": "emoji phù hợp",
 }
 Chỉ trả về mảng JSON. Các từ nên dễ hiểu với trẻ từ 3-6 tuổi.
@@ -36,24 +34,19 @@ onMounted(() => {
   fetchData()
 })
 
-function fireConfetti(el) {
-  const rect = el.getBoundingClientRect()
-  confetti({
-    particleCount: 70,
-    spread: 90,
-    origin: {
-      x: (rect.left + rect.width / 2) / window.innerWidth,
-      y: (rect.top + rect.height / 2) / window.innerHeight,
-    },
-  })
-}
+async function playSound(event: MouseEvent, animal: any) {
+  const { shootAtCursor } = useConfetti()
+  const { playFallback } = useFallbackSound()
+  const { tryPlay } = usePlayLocalIfExists()
 
-function playSound(event: any) {
-  const sound = new Howl({ src: ['/sounds/sharp-pop.mp3'], volume: 1.0 })
-  sound.play()
+  // Bắn pháo bông
+  shootAtCursor(event)
 
-  const el = event.currentTarget
-  fireConfetti(el)
+  if (await tryPlay(animal.sound))
+    return
+
+  // Nếu thất bại, fallback
+  playFallback()
 }
 </script>
 
@@ -71,7 +64,7 @@ function playSound(event: any) {
           v-for="(animal, index) in animals || []"
           :key="`MQvfN${index}`"
           class="bg-white p-6 rounded-3xl shadow-lg cursor-pointer flex flex-col items-center justify-center w-32 h-32 active:scale-110 transform transition-all duration-300"
-          @click="(e) => playSound(e)"
+          @click="(e) => playSound(e, animal)"
         >
           <div class="text-7xl mb-2 select-none">
             {{ animal.emoji }}

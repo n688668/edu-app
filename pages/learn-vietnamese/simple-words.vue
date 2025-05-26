@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import confetti from 'canvas-confetti'
-import { Howl } from 'howler'
-
 useHead({
   title: 'Đọc Từ Đơn Giản',
 })
@@ -12,6 +9,7 @@ const prompt = `
 Hãy tạo một mảng JSON gồm 12 từ tiếng Việt ngẫu nhiên, và thông dụng trong đời sống cho trẻ em, mỗi phần tử có dạng:
 {
   "text": "từ ngẫu nhiên",
+  "sound": "/sounds/vietnamese/words/ten-file-theo-text.mp3",
   "emoji": "emoji phù hợp"
 }
 Chỉ trả về mảng JSON. Các vần nên phổ biến và dễ hiểu với trẻ từ 3-6 tuổi. Đảm bảo mỗi phần tử có một vần đúng duy nhất và một vần gây nhiễu hợp lý.
@@ -36,19 +34,19 @@ onMounted(() => {
   fetchData()
 })
 
-function playSound(event: MouseEvent) {
-  const sound = new Howl({ src: ['/sounds/sharp-pop.mp3'], volume: 1.0 })
-  sound.play()
+async function playSound(event: MouseEvent, word: any) {
+  const { shootAtCursor } = useConfetti()
+  const { playFallback } = useFallbackSound()
+  const { tryPlay } = usePlayLocalIfExists()
 
-  // Lấy tọa độ click trên màn hình để tạo pháo bông tại đó
-  const x = event.clientX / window.innerWidth
-  const y = event.clientY / window.innerHeight
+  // Bắn pháo bông
+  shootAtCursor(event)
 
-  confetti({
-    particleCount: 100,
-    spread: 70,
-    origin: { x, y },
-  })
+  if (await tryPlay(word.sound))
+    return
+
+  // Nếu thất bại, fallback
+  playFallback()
 }
 </script>
 
@@ -68,7 +66,7 @@ function playSound(event: MouseEvent) {
           v-for="word in simpleWords"
           :key="`CAMjm${word.text}`"
           class="bg-white rounded-2xl shadow-lg p-4 flex flex-col items-center cursor-pointer active:scale-110 transition-transform"
-          @click="(e) => playSound(e)"
+          @click="(e) => playSound(e, word)"
         >
           <div class="text-7xl mb-2">
             {{ word.emoji }}

@@ -12,6 +12,7 @@ Hãy tạo một mảng JSON gồm 20 kỹ năng sống cần thiết cho trẻ 
   "name": "Tên kỹ năng",
   "emoji": "Biểu tượng minh họa (emoji)",
   "description": "Giải thích ngắn gọn, dễ hiểu cho bé"
+  "sound": "/sounds/vietnamese/words/ten-file-theo-name.mp3",
 }
 Chủ đề nên bao gồm: lễ nghĩa trong gia đình, ứng xử với người ngoài, kỹ năng ở trường lớp, sinh hoạt cá nhân (đánh răng, rửa tay, dọn đồ chơi...), và tình huống xã hội đơn giản. Trả về đúng mảng JSON.
 `
@@ -38,6 +39,23 @@ onMounted(() => {
 function closeModal() {
   selectedSkill.value = null
 }
+
+async function playSound(event: MouseEvent, skill: any) {
+  selectedSkill.value = skill
+
+  const { shootAtCursor } = useConfetti()
+  const { playFallback } = useFallbackSound()
+  const { tryPlay } = usePlayLocalIfExists()
+
+  // Bắn pháo bông
+  shootAtCursor(event)
+
+  if (await tryPlay(skill.sound))
+    return
+
+  // Nếu thất bại, fallback
+  playFallback()
+}
 </script>
 
 <template>
@@ -54,7 +72,7 @@ function closeModal() {
           v-for="(skill, index) in skills"
           :key="`skill-${index}`"
           class="bg-white p-6 rounded-3xl shadow-lg cursor-pointer flex flex-col items-center justify-center w-36 h-36 active:scale-110 transform transition-all duration-300"
-          @click="selectedSkill = skill"
+          @click="(e) => playSound(e, skill)"
         >
           <div class="text-6xl mb-2 select-none">
             {{ skill.emoji }}

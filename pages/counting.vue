@@ -33,7 +33,7 @@ function resetGame() {
   isCompleted.value = false
 }
 
-function playSound(number) {
+async function playSound(event: MouseEvent, number: any) {
   if (correctNumbers.value.has(number) || isCompleted.value)
     return
 
@@ -55,10 +55,18 @@ function playSound(number) {
     }
   }
 
-  const sound = new Howl({
-    src: [`/sounds/numbers/${number}.mp3`],
-  })
-  sound.play()
+  const { shootAtCursor } = useConfetti()
+  const { playFallback } = useFallbackSound()
+  const { tryPlay } = usePlayLocalIfExists()
+
+  // Bắn pháo bông
+  shootAtCursor(event)
+
+  if (await tryPlay(`/sounds/numbers/${number}.mp3`))
+    return
+
+  // Nếu thất bại, fallback
+  playFallback()
 }
 
 onMounted(() => {
@@ -85,7 +93,7 @@ onMounted(() => {
               ? 'bg-red-400 text-white scale-110'
               : 'bg-white text-pink-600 hover:scale-105',
         ]"
-        @click="playSound(n)"
+        @click="(e) => playSound(e, n)"
       >
         {{ n }}
       </button>

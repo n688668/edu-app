@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import confetti from 'canvas-confetti'
-
 useHead({
   title: 'Bé Học Vui',
 })
@@ -18,31 +16,7 @@ const learningItems = [
   { title: 'Game thẻ 2', icon: '🪁', path: '/game-cards-2' },
 ]
 
-function launchConfetti() {
-  const duration = 3 * 1000
-  const animationEnd = Date.now() + duration
-  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 9999 }
-
-  const interval = setInterval(() => {
-    const timeLeft = animationEnd - Date.now()
-
-    if (timeLeft <= 0) {
-      clearInterval(interval)
-      return
-    }
-
-    const particleCount = 50 * (timeLeft / duration)
-    // since particles fall down, start them at random x positions
-    confetti({
-      ...defaults,
-      particleCount,
-      origin: {
-        x: Math.random(),
-        y: Math.random() * 0.6,
-      },
-    })
-  }, 250)
-}
+const { launchConfetti } = useConfetti()
 
 function sayHi() {
   // alert('Chào bé! Cùng chơi và học nhé!')

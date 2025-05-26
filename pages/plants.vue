@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import confetti from 'canvas-confetti'
-import { Howl } from 'howler'
-
 useHead({
   title: 'Học Tên Các Loài Cây (Plants)',
 })
@@ -12,11 +9,12 @@ const prompt = `
 Hãy tạo một mảng JSON gồm 20 từ ngẫu nhiên tiếng Anh chủ đề thực vật, mỗi phần tử có dạng:
 {
   "name": "từ thực vật ngẫu nhiên bằng tiếng Anh",
+  "sound": "/sounds/vietnamese/words/ten-file-theo-text.mp3",
   "emoji": "emoji phù hợp",
 }
 Chỉ trả về mảng JSON. Các từ nên dễ hiểu với trẻ từ 3-6 tuổi.
 `
-const { data: animals, fetchWords } = useGeminiWords(prompt)
+const { data: plants, fetchWords } = useGeminiWords(prompt)
 
 async function fetchData() {
   isLoading.value = true
@@ -36,24 +34,19 @@ onMounted(() => {
   fetchData()
 })
 
-function fireConfetti(el) {
-  const rect = el.getBoundingClientRect()
-  confetti({
-    particleCount: 70,
-    spread: 90,
-    origin: {
-      x: (rect.left + rect.width / 2) / window.innerWidth,
-      y: (rect.top + rect.height / 2) / window.innerHeight,
-    },
-  })
-}
+async function playSound(event: MouseEvent, plant: any) {
+  const { shootAtCursor } = useConfetti()
+  const { playFallback } = useFallbackSound()
+  const { tryPlay } = usePlayLocalIfExists()
 
-function playSound(event: any) {
-  const sound = new Howl({ src: ['/sounds/sharp-pop.mp3'], volume: 1.0 })
-  sound.play()
+  // Bắn pháo bông
+  shootAtCursor(event)
 
-  const el = event.currentTarget
-  fireConfetti(el)
+  if (await tryPlay(plant.sound))
+    return
+
+  // Nếu thất bại, fallback
+  playFallback()
 }
 </script>
 
@@ -68,16 +61,16 @@ function playSound(event: any) {
 
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 justify-items-center mb-6">
         <div
-          v-for="(animal, index) in animals || []"
+          v-for="(plant, index) in plants || []"
           :key="`MavGN${index}`"
           class="bg-white p-6 rounded-3xl shadow-lg cursor-pointer flex flex-col items-center justify-center w-32 h-32 active:scale-110 transform transition-all duration-300"
-          @click="(e) => playSound(e)"
+          @click="(e) => playSound(e, plant)"
         >
           <div class="text-7xl mb-2 select-none">
-            {{ animal.emoji }}
+            {{ plant.emoji }}
           </div>
           <div class="text-2xl font-semibold text-purple-900 select-none">
-            {{ animal.name }}
+            {{ plant.name }}
           </div>
         </div>
       </div>

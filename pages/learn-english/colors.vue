@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Howl } from 'howler'
-
 useHead({
   title: 'Màu Sắc (Colors)',
 })
@@ -36,11 +34,19 @@ onMounted(() => {
   shuffledColors.value = shuffleArray(colors)
 })
 
-function playSound(color) {
-  const sound = new Howl({
-    src: [color.sound],
-  })
-  sound.play()
+async function playSound(event: MouseEvent, color: any) {
+  const { shootAtCursor } = useConfetti()
+  const { playFallback } = useFallbackSound()
+  const { tryPlay } = usePlayLocalIfExists()
+
+  // Bắn pháo bông
+  shootAtCursor(event)
+
+  if (await tryPlay(color.sound))
+    return
+
+  // Nếu thất bại, fallback
+  playFallback()
 }
 </script>
 
@@ -56,7 +62,7 @@ function playSound(color) {
         :key="`LpYaF${color.name}`"
         :style="{ backgroundColor: color.hex }"
         class="rounded-2xl shadow-lg px-6 py-8 flex items-center justify-center cursor-pointer active:scale-110 transition"
-        @click="playSound(color)"
+        @click="(e) => playSound(e, color)"
       >
         <span class="text-white text-3xl font-bold drop-shadow-md">
           {{ color.name }}
