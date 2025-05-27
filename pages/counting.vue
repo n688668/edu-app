@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Howl } from 'howler'
-
 useHead({
   title: 'Đếm Số Từ 1 đến 100',
 })
@@ -62,7 +60,7 @@ async function playSound(event: MouseEvent, number: any) {
   // Bắn pháo bông
   shootAtCursor(event)
 
-  if (await tryPlay(`/sounds/numbers/${number}.mp3`))
+  if (await tryPlay(`/sounds/vietnamese/numbers/${number}.mp3`))
     return
 
   // Nếu thất bại, fallback
