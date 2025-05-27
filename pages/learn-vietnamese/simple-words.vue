@@ -6,13 +6,16 @@ useHead({
 const isLoading = ref(true)
 
 const prompt = `
-Hãy tạo một mảng JSON gồm 12 từ tiếng Việt ngẫu nhiên, và thông dụng trong đời sống cho trẻ em, mỗi phần tử có dạng:
+Hãy tạo một mảng JSON gồm 12 từ tiếng Việt ngẫu nhiên.
+Chủ đề gia đình, trường học, giao thông, phương tiện, thời tiết, đồ vật, động vật (có chữ con), trái cây (có chữ quả), các loại hoa (có chữ hoa), các loại cây (có chữ cây), thiên văn học.
+Các từ phổ biến, thông dụng trong đời sống cho trẻ em từ 3-6 tuổi.
+Mỗi phần tử có dạng:
 {
   "text": "từ ngẫu nhiên",
   "sound": "/sounds/vietnamese/words/ten-file-theo-text.mp3",
   "emoji": "emoji phù hợp"
 }
-Chỉ trả về mảng JSON. Các vần nên phổ biến và dễ hiểu với trẻ từ 3-6 tuổi. Đảm bảo mỗi phần tử có một vần đúng duy nhất và một vần gây nhiễu hợp lý.
+Chỉ trả về mảng JSON.
 `
 const { data: simpleWords, fetchWords } = useGeminiWords(prompt)
 
