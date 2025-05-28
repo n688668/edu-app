@@ -32,18 +32,13 @@ const alphabet = [
   'Z',
 ]
 
-// Hàm chuyển ký tự tiếng Việt có dấu sang tên file không dấu
-function letterToFilename(letter: string): string {
-  return letter.toLowerCase()
-}
-
 // Phát âm chữ cái
 async function playSound(event: MouseEvent, letter: string) {
   const { shootAtCursor } = useConfetti()
   const { playFallback } = useFallbackSound()
   const { tryPlay } = usePlayAudio()
 
-  const filename = letterToFilename(letter)
+  const filename = letter.toLowerCase()
   const src = `/sounds/english/alphabet/${filename}.mp3`
 
   // Bắn pháo bông

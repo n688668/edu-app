@@ -35,22 +35,6 @@ const alphabet = [
   'Y',
 ]
 
-// Hàm chuyển ký tự tiếng Việt có dấu sang tên file không dấu
-function letterToFilename(letter: string): string {
-  const map: Record<string, string> = {
-    Ă: 'aw',
-    Â: 'aa',
-    Ê: 'ee',
-    Ô: 'oo',
-    Ơ: 'ow',
-    Ư: 'uw',
-    Đ: 'dd',
-  }
-
-  const base = letter.toLowerCase()
-  return map[letter] || base
-}
-
 // Phát âm chữ cái
 async function playSound(event: MouseEvent, letter: string) {
   const { shootAtCursor } = useConfetti()

@@ -20,14 +20,12 @@ onMounted(async () => {
   syllables.value = data
 })
 
-async function playSound(result: string) {
-  const { playFallback } = useFallbackSound()
+async function playSound(text: string) {
   const { tryPlay } = usePlayAudio()
 
-  if (await tryPlay(`/sounds/vietnamese/words/${slugify(result)}.mp3`))
-    return
+  const filename = letterToFilename(text)
 
-  playFallback()
+  await tryPlay(`/sounds/vietnamese/syllables/${filename}.mp3`)
 }
 
 async function handleVowelClick(item: VowelData) {
@@ -42,6 +40,9 @@ async function handleRhymeClick(r: Rhyme) {
 
   // Phát âm text trước (ví dụ: "nh")
   await playSound(r.text)
+
+  // Đợi 1 giây trước khi phát phần ghép
+  await new Promise(resolve => setTimeout(resolve, 1000))
 
   // Sau đó phát âm result (ví dụ: "nha")
   await playSound(r.result)
@@ -88,11 +89,13 @@ async function handleRhymeClick(r: Rhyme) {
       v-if="selectedRhyme"
       class="fixed bottom-4 left-1/2 transform -translate-x-1/2 w-[90%] max-w-md bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-2xl z-50"
     >
-      <div class="text-3xl text-green-700 font-bold mb-6 text-center">
-        🎉 Bé đã ghép được:
-      </div>
-      <div class="text-7xl text-red-600 font-extrabold text-center mb-6">
-        {{ selectedRhyme.result }}
+      <div class="mb-8" @click="playSound(selectedRhyme.result)">
+        <div class="text-3xl text-green-700 font-bold mb-6 text-center">
+          🎉 Bé đã ghép được:
+        </div>
+        <div class="text-7xl text-red-600 font-extrabold text-center mb-6">
+          {{ selectedRhyme.result }}
+        </div>
       </div>
 
       <div class="flex justify-center">
