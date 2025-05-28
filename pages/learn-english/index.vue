@@ -12,12 +12,7 @@ const items = [
   {
     title: 'Từ vựng cơ bản',
     path: '/learn-english/vocabulary',
-    icon: '🧠',
-  },
-  {
-    title: 'Màu sắc tiếng Anh',
-    path: '/learn-english/colors',
-    icon: '🎨',
+    icon: '📖',
   },
   {
     title: 'Số đếm',

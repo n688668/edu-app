@@ -1,33 +1,30 @@
 <script setup lang="ts">
 useHead({
-  title: 'Kỹ Năng Sống Cho Bé',
+  title: 'Kỹ Năng Cho Bé',
 })
 
 const isLoading = ref(true)
+const skills = ref<any[]>([])
 const selectedSkill: any = ref(null)
-
-const prompt = `
-Hãy tạo một mảng JSON gồm 20 kỹ năng sống cần thiết cho trẻ 3-6 tuổi. Mỗi phần tử có dạng:
-{
-  "name": "Tên kỹ năng",
-  "emoji": "Biểu tượng minh họa (emoji)",
-  "description": "Giải thích ngắn gọn, dễ hiểu cho bé"
-  "sound": "/sounds/vietnamese/words/ten-file-theo-name.mp3",
-}
-Chủ đề nên bao gồm: lễ nghĩa trong gia đình, ứng xử với người ngoài, kỹ năng ở trường lớp, sinh hoạt cá nhân (đánh răng, rửa tay, dọn đồ chơi...), và tình huống xã hội đơn giản. Trả về đúng mảng JSON.
-`
-
-const { data: skills, fetchWords } = useGeminiWords(prompt)
 
 async function fetchData() {
   isLoading.value = true
   try {
-    await fetchWords()
+    const res = await fetch('/data/vietnamese-skills.json')
+    const allWords = await res.json()
+
+    // Shuffle và chọn ngẫu nhiên 12 từ
+    const shuffled = allWords.sort(() => 0.5 - Math.random()).slice(0, 20)
+
+    // Gán sound dựa trên name
+    skills.value = shuffled.map((word: any) => ({
+      ...word,
+      sound: `/sounds/english/words/${word.sound}.mp3`,
+    }))
+
+    isLoading.value = false
   }
   catch {
-    // fallback nếu lỗi
-  }
-  finally {
     isLoading.value = false
   }
 }
@@ -45,7 +42,7 @@ async function playSound(event: MouseEvent, skill: any) {
 
   const { shootAtCursor } = useConfetti()
   const { playFallback } = useFallbackSound()
-  const { tryPlay } = usePlayLocalIfExists()
+  const { tryPlay } = usePlayAudio()
 
   // Bắn pháo bông
   shootAtCursor(event)
@@ -64,7 +61,7 @@ async function playSound(event: MouseEvent, skill: any) {
 
     <div v-else>
       <h1 class="text-3xl font-bold text-pink-700 mb-8 text-center select-none">
-        🌟 Kỹ Năng Sống Cho Bé
+        🌟 Kỹ Năng Cho Bé
       </h1>
 
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 justify-items-center mb-6">

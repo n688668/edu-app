@@ -3,7 +3,7 @@ import confetti from 'canvas-confetti'
 import { Howl } from 'howler'
 
 useHead({
-  title: 'Học Tiếng Việt',
+  title: 'Phân biệt âm vần',
 })
 
 let correctSound: Howl | null = null
@@ -17,28 +17,47 @@ function shuffleOptions<T>(array: T[]): T[] {
 }
 
 const isLoading = ref(true)
-
-const prompt = `
-Hãy tạo một mảng JSON gồm 20 từ ngẫu nhiên tiếng Việt dành cho trẻ em, mỗi phần tử có dạng:
-{
-  "word": "từ ngẫu nhiên",
-  "correct": "vần đúng cần chọn",
-  "options": ["vần sai", "vần đúng"],
-}
-Chỉ trả về mảng JSON. Các vần nên phổ biến và dễ hiểu với trẻ từ 3-6 tuổi. Đảm bảo mỗi phần tử có một vần đúng duy nhất và một vần gây nhiễu hợp lý.
-`
-const { data: simpleWords, fetchWords } = useGeminiWords(prompt)
+const simpleWords = ref<any[]>([])
 
 async function fetchData() {
   isLoading.value = true
   try {
-    // Bước 1: Loại bỏ các dòng bắt đầu bằng ```
-    await fetchWords()
+    const response = await fetch('/data/vietnamese-rhymes.json')
+    const rhymeData: Array<{ rhyme: string, words: string[] }> = await response.json()
 
+    // Gom tất cả từ kèm rhyme tương ứng
+    const wordList: Array<{ text: string, rhyme: string }> = []
+    for (const item of rhymeData) {
+      for (const word of item.words) {
+        wordList.push({ text: word, rhyme: item.rhyme })
+      }
+    }
+
+    // Xáo trộn và lấy 20 từ ngẫu nhiên
+    const selected = wordList
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 20)
+
+    // Tạo mảng phù hợp cho simpleWords
+    const finalWords = selected.map((wordObj) => {
+      // Tìm rhyme khác bất kỳ (gây nhiễu)
+      const otherRhymes = rhymeData
+        .map(r => r.rhyme)
+        .filter(r => r !== wordObj.rhyme)
+      const randomWrong = otherRhymes[Math.floor(Math.random() * otherRhymes.length)]
+
+      return {
+        text: wordObj.text,
+        correct: wordObj.rhyme,
+        options: shuffleOptions([wordObj.rhyme, randomWrong]),
+      }
+    })
+
+    simpleWords.value = finalWords
     isLoading.value = false
   }
-  catch {
-    // Nếu lỗi, giữ nguyên defaultWords
+  catch (error) {
+    console.error('Lỗi tải dữ liệu:', error)
     isLoading.value = false
   }
 }
@@ -50,6 +69,7 @@ onMounted(() => {
 const currentIndex = ref(0)
 const selectedOption = ref<string | null>(null)
 const isCorrect = ref<boolean | null>(null)
+const checked = ref(false)
 
 const currentWord = computed(() => {
   const word = simpleWords.value[currentIndex.value]
@@ -59,11 +79,33 @@ const currentWord = computed(() => {
   }
 })
 
-function checkAnswer(option: string) {
-  if (selectedOption.value)
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036F]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+function playSoundForText(text: string) {
+  const name = slugify(text)
+  const sound = new Howl({ src: [`/sounds/vietnamese/words/${name}.mp3`], volume: 1.0 })
+  sound.play()
+}
+
+function handleSelectOption(option: string) {
+  if (checked.value)
     return
   selectedOption.value = option
-  isCorrect.value = option === currentWord.value.correct
+  playSoundForText(option)
+}
+
+function checkAnswer() {
+  if (!selectedOption.value || checked.value)
+    return
+  isCorrect.value = selectedOption.value === currentWord.value.correct
+  checked.value = true
 
   if (isCorrect.value) {
     if (!correctSound) {
@@ -89,9 +131,8 @@ function checkAnswer(option: string) {
 function nextWord() {
   selectedOption.value = null
   isCorrect.value = null
+  checked.value = false
   currentIndex.value = (currentIndex.value + 1) % simpleWords.value.length
-
-  // Kiểm tra nếu hết lượt, tải lại mảng dữ liệu mới
   if (currentIndex.value === 0) {
     fetchData()
   }
@@ -107,43 +148,55 @@ function nextWord() {
         🔈Phân biệt âm vần
       </h1>
 
-      <p class="text-8xl font-bold mb-10 text-yellow-600 drop-shadow-sm">
-        {{ currentWord.word }}
-      </p>
+      <div class="flex justify-center items-center gap-4 mb-10" @click="playSoundForText(currentWord.text)">
+        <p class="text-8xl font-bold text-yellow-600 drop-shadow-sm">
+          {{ currentWord.text }}
+        </p>
+        <button class="text-5xl">
+          🔊
+        </button>
+      </div>
 
-      <div class="flex justify-around mb-10 gap-6">
+      <div class="flex justify-around mb-6 gap-6 flex-wrap">
         <button
           v-for="(option, index) in currentWord.options"
           :key="`OwLsG${index}`"
           class="w-32 h-32 rounded-full text-5xl font-bold shadow-lg transition transform active:scale-110 flex items-center justify-center"
           :class="{
-            'bg-gradient-to-br from-green-400 to-green-600 text-white': selectedOption === option && isCorrect === true,
-            'bg-gradient-to-br from-red-400 to-red-600 text-white': selectedOption === option && isCorrect === false,
-            'bg-gradient-to-br from-purple-400 to-purple-600 text-white': selectedOption !== option,
-            'shake': selectedOption === option && isCorrect === false,
+            'bg-gradient-to-br from-green-400 to-green-600 text-white': checked && selectedOption === option && isCorrect,
+            'bg-gradient-to-br from-red-400 to-red-600 text-white': checked && selectedOption === option && !isCorrect,
+            'bg-gradient-to-br from-purple-400 to-purple-600 text-white': !checked || selectedOption !== option,
+            'shake': checked && selectedOption === option && !isCorrect,
           }"
-          @click="checkAnswer(option)"
+          @click="handleSelectOption(option)"
         >
           {{ option }}
         </button>
       </div>
 
-      <div v-if="selectedOption" class="mb-6">
+      <div v-if="selectedOption && !checked" class="mb-6">
+        <button
+          class="mt-2 px-10 py-5 bg-green-400 hover:bg-green-500 text-white rounded-full font-bold text-3xl shadow-lg transition"
+          @click="checkAnswer"
+        >
+          ✅ Kiểm tra
+        </button>
+      </div>
+
+      <div v-if="checked" class="mb-6">
         <p
           class="text-3xl font-bold"
           :class="isCorrect ? 'text-green-600' : 'text-red-600'"
         >
           {{ isCorrect ? '🎉 Giỏi lắm!' : '😢 Sai rồi, thử lại nhé!' }}
         </p>
+        <button
+          class="mt-2 px-10 py-5 bg-pink-400 hover:bg-pink-500 text-white rounded-full font-bold text-3xl shadow-lg transition"
+          @click="nextWord"
+        >
+          👉 Tiếp tục
+        </button>
       </div>
-
-      <button
-        v-if="selectedOption"
-        class="mt-2 px-10 py-5 bg-pink-400 hover:bg-pink-500 text-white rounded-full font-bold text-2xl shadow-lg transition"
-        @click="nextWord"
-      >
-        👉 Tiếp tục
-      </button>
     </div>
   </div>
 </template>
@@ -152,5 +205,15 @@ function nextWord() {
 button:focus {
   outline: none;
   box-shadow: 0 0 0 3px #fcd34d;
+}
+.shake {
+  animation: shake 0.4s;
+}
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  50% { transform: translateX(8px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
 }
 </style>

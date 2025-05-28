@@ -55,7 +55,7 @@ async function playSound(event: MouseEvent, number: any) {
 
   const { shootAtCursor } = useConfetti()
   const { playFallback } = useFallbackSound()
-  const { tryPlay } = usePlayLocalIfExists()
+  const { tryPlay } = usePlayAudio()
 
   // Bắn pháo bông
   shootAtCursor(event)

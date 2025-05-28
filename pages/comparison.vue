@@ -11,26 +11,17 @@ const answered = ref(false)
 const wrongIndex = ref(null)
 
 const isLoading = ref(true)
-
-const prompt = `
-Hãy tạo một mảng JSON gồm 20 câu hỏi ngẫu nhiên tiếng Việt chủ đề so sánh bất kỳ dạng so sánh nào, mỗi phần tử có dạng:
-{
-  "question": "Câu hỏi so sánh",
-  "options": [
-    { type: 'số 1, 2, hoặc 3', label: 'Tên đáp án đúng không có emoji', emoji: 'emoji phù hợp đáp án đúng', correct: "nếu là đáp án đúng thì là true" }
-    { type: 'số 1, 2, hoặc 3',label: 'Tên đáp án sai không có emoji', emoji: 'emoji phù hợp đáp án sai' }
-  ],
-}
-Đối với options thì xáo trộn thứ tự đáp án ngẫu nhiên.
-Phần tử type trong options điền 1 số chỉ theo logic sau: Số 1 nếu tính chất so sánh đáp án là dài, lớn, to, cao, béo, mập, rộng, dày. Số 2 nếu tính chất so sánh đáp án là ngắn, nhỏ, thấp, bé, gầy, yếu, ốm, mỏng, hẹp. Số 3 nếu không thuộc các trường hợp trên.
-Chỉ trả về mảng JSON. Các câu hỏi nên dễ hiểu với trẻ từ 3-6 tuổi.
-`
-const { data: questions, fetchWords } = useGeminiWords(prompt)
+const questions = ref<any[]>([])
 
 async function fetchData() {
   isLoading.value = true
   try {
-    await fetchWords()
+    const res = await fetch('/data/vietnamese-comparisons.json')
+    const allWords = await res.json()
+
+    // Shuffle và chọn ngẫu nhiên 12 từ
+    questions.value = allWords.sort(() => 0.5 - Math.random()).slice(0, 20)
+
     isLoading.value = false
   }
   catch {

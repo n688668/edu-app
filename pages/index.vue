@@ -11,7 +11,7 @@ const learningItems = [
   { title: 'So sánh', icon: '⚖️', path: '/comparison' },
   { title: 'Động vật', icon: '🐶', path: '/animals' },
   { title: 'Thực vật', icon: '🌱', path: '/plants' },
-  { title: 'Kỹ năng sống', icon: '🧠', path: '/life-skills' },
+  { title: 'Kỹ năng', icon: '🧠', path: '/skills' },
   { title: 'Game thẻ 1', icon: '🃏', path: '/game-cards-1' },
   { title: 'Game thẻ 2', icon: '🪁', path: '/game-cards-2' },
 ]

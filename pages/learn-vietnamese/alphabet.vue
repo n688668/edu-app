@@ -55,7 +55,7 @@ function letterToFilename(letter: string): string {
 async function playSound(event: MouseEvent, letter: string) {
   const { shootAtCursor } = useConfetti()
   const { playFallback } = useFallbackSound()
-  const { tryPlay } = usePlayLocalIfExists()
+  const { tryPlay } = usePlayAudio()
 
   const filename = letterToFilename(letter)
   const src = `/sounds/vietnamese/alphabet/${filename}.mp3`
