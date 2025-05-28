@@ -79,26 +79,19 @@ const currentWord = computed(() => {
   }
 })
 
-function slugify(text: string) {
-  return text
-    .toLowerCase()
-    .normalize('NFD')
-    .replace(/[\u0300-\u036F]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-}
+async function playSound(text: string) {
+  const { tryPlay } = usePlayAudio()
 
-function playSoundForText(text: string) {
-  const name = slugify(text)
-  const sound = new Howl({ src: [`/sounds/vietnamese/words/${name}.mp3`], volume: 1.0 })
-  sound.play()
+  const filename = letterToFilename(text)
+
+  await tryPlay(`/sounds/vietnamese/rhymes/${filename}.mp3`)
 }
 
 function handleSelectOption(option: string) {
   if (checked.value)
     return
   selectedOption.value = option
-  playSoundForText(option)
+  playSound(option)
 }
 
 function checkAnswer() {
@@ -148,7 +141,7 @@ function nextWord() {
         🔈Phân biệt âm vần
       </h1>
 
-      <div class="flex justify-center items-center gap-4 mb-10" @click="playSoundForText(currentWord.text)">
+      <div class="flex justify-center items-center gap-4 mb-10" @click="playSound(currentWord.text)">
         <p class="text-8xl font-bold text-yellow-600 drop-shadow-sm">
           {{ currentWord.text }}
         </p>
