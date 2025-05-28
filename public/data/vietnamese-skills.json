@@ -1,0 +1,308 @@
+[
+  {
+    "name": "Chào hỏi",
+    "emoji": "👋",
+    "description": "Khi gặp người lớn, con hãy khoanh tay chào lễ phép nhé!",
+    "sound": "chao-hoi.mp3"
+  },
+  {
+    "name": "Cảm ơn",
+    "emoji": "🙏",
+    "description": "Khi ai đó giúp đỡ, con nhớ nói 'Cảm ơn' nha!",
+    "sound": "cam-on.mp3"
+  },
+  {
+    "name": "Xin lỗi",
+    "emoji": "😔",
+    "description": "Nếu làm sai điều gì, con dũng cảm nói 'Xin lỗi' nhé!",
+    "sound": "xin-loi.mp3"
+  },
+  {
+    "name": "Vâng lời",
+    "emoji": "👂",
+    "description": "Con nghe lời ông bà, cha mẹ, thầy cô để trở thành bé ngoan nhé!",
+    "sound": "vang-loi.mp3"
+  },
+  {
+    "name": "Chia sẻ",
+    "emoji": "🤝",
+    "description": "Con chia sẻ đồ chơi với bạn để cùng vui nha!",
+    "sound": "chia-se.mp3"
+  },
+  {
+    "name": "Giúp đỡ",
+    "emoji": "💪",
+    "description": "Con giúp đỡ mọi người khi có thể nhé!",
+    "sound": "giup-do.mp3"
+  },
+  {
+    "name": "Xếp hàng",
+    "emoji": "🧍🧍",
+    "description": "Khi đi học, con xếp hàng ngay ngắn chờ đến lượt mình nha!",
+    "sound": "xep-hang.mp3"
+  },
+  {
+    "name": "Giữ im lặng",
+    "emoji": "🤫",
+    "description": "Khi cô giáo giảng bài, con giữ im lặng để nghe rõ hơn nha!",
+    "sound": "giu-im-lang.mp3"
+  },
+  {
+    "name": "Giữ vệ sinh",
+    "emoji": "🧼",
+    "description": "Con giữ gìn vệ sinh cá nhân và nơi ở luôn sạch sẽ nha!",
+    "sound": "giu-ve-sinh.mp3"
+  },
+  {
+    "name": "Đánh răng",
+    "emoji": "🪥",
+    "description": "Con đánh răng 2 lần mỗi ngày để răng luôn khỏe mạnh nha!",
+    "sound": "danh-rang.mp3"
+  },
+  {
+    "name": "Rửa tay",
+    "emoji": "🤲",
+    "description": "Con rửa tay trước khi ăn và sau khi đi vệ sinh để sạch vi khuẩn nha!",
+    "sound": "rua-tay.mp3"
+  },
+  {
+    "name": "Dọn đồ chơi",
+    "emoji": "🧸",
+    "description": "Sau khi chơi xong, con nhớ dọn đồ chơi vào đúng chỗ nha!",
+    "sound": "don-do-choi.mp3"
+  },
+  {
+    "name": "Tự mặc quần áo",
+    "emoji": "👕",
+    "description": "Con tập tự mặc quần áo để lớn nhanh hơn nha!",
+    "sound": "tu-mac-quan-ao.mp3"
+  },
+  {
+    "name": "Tự đi vệ sinh",
+    "emoji": "🚽",
+    "description": "Con tập tự đi vệ sinh để tự lập hơn nha!",
+    "sound": "tu-di-ve-sinh.mp3"
+  },
+  {
+    "name": "Bảo vệ bản thân",
+    "emoji": "🛡️",
+    "description": "Nếu có người lạ cho quà, con hãy nói với người lớn nha!",
+    "sound": "bao-ve-ban-than.mp3"
+  },
+  {
+    "name": "Không nói chuyện với người lạ",
+    "emoji": "🗣️",
+    "description": "Con không nên nói chuyện hoặc đi theo người lạ nha!",
+    "sound": "khong-noi-chuyen-voi-nguoi-la.mp3"
+  },
+  {
+    "name": "Hỏi ý kiến",
+    "emoji": "❓",
+    "description": "Khi muốn làm gì, con hãy hỏi ý kiến người lớn trước nha!",
+    "sound": "hoi-y-kien.mp3"
+  },
+  {
+    "name": "Nhận lỗi",
+    "emoji": "🙇",
+    "description": "Nếu làm sai, con dũng cảm nhận lỗi và sửa sai nha!",
+    "sound": "nhan-loi.mp3"
+  },
+  {
+    "name": "Kiên nhẫn",
+    "emoji": "⏳",
+    "description": "Con hãy kiên nhẫn chờ đợi đến lượt mình nha!",
+    "sound": "kien-nhan.mp3"
+  },
+  {
+    "name": "Không ăn vạ",
+    "emoji": "😭",
+    "description": "Con không nên ăn vạ khi không được điều mình muốn nha!",
+    "sound": "khong-an-va.mp3"
+  },
+  {
+    "name": "Chào hỏi lễ phép",
+    "emoji": "👋",
+    "description": "Khi gặp người lớn, con hãy khoanh tay chào và nói 'cháu chào ông/bà/cô/chú ạ' nhé!",
+    "sound": "chao-hoi-le-phep.mp3"
+  },
+  {
+    "name": "Cảm ơn và xin lỗi",
+    "emoji": "🙏",
+    "description": "Khi được ai đó giúp đỡ hoặc làm điều gì sai, con nhớ nói 'cảm ơn' và 'xin lỗi' nha!",
+    "sound": "cam-on-va-xin-loi.mp3"
+  },
+  {
+    "name": "Lắng nghe",
+    "emoji": "👂",
+    "description": "Con hãy lắng nghe khi người khác nói chuyện nha!",
+    "sound": "lang-nghe.mp3"
+  },
+  {
+    "name": "Vâng lời người lớn",
+    "emoji": "👂",
+    "description": "Khi bố mẹ, ông bà dặn dò điều gì, con hãy lắng nghe và làm theo nhé!",
+    "sound": "vang-loi-nguoi-lon.mp3"
+  },
+  {
+    "name": "Dọn dẹp đồ chơi",
+    "emoji": "🧸",
+    "description": "Sau khi chơi xong, con hãy dọn dẹp đồ chơi vào đúng chỗ nha!",
+    "sound": "don-dep-do-choi.mp3"
+  },
+  {
+    "name": "Vứt rác đúng nơi",
+    "emoji": "🗑️",
+    "description": "Con hãy vứt rác vào thùng rác để giữ gìn vệ sinh chung!",
+    "sound": "vut-rac-dung-noi.mp3"
+  },
+  {
+    "name": "Không nói chuyện khi ăn",
+    "emoji": "🍽️",
+    "description": "Khi ăn cơm, con hãy tập trung ăn và không nói chuyện nhé!",
+    "sound": "khong-noi-chuyen-khi-an.mp3"
+  },
+  {
+    "name": "Giúp đỡ người khác",
+    "emoji": "😇",
+    "description": "Con hãy giúp đỡ bạn bè và người lớn khi họ cần!",
+    "sound": "giup-do-nguoi-khac.mp3"
+  },
+  {
+    "name": "Không lấy đồ của người khác",
+    "emoji": "🙅‍♀️",
+    "description": "Con không được tự ý lấy đồ của người khác khi chưa được cho phép.",
+    "sound": "khong-lay-do-cua-nguoi-khac.mp3"
+  },
+  {
+    "name": "Tự bảo vệ mình",
+    "emoji": "🛡️",
+    "description": "Nếu có người lạ đến gần, con hãy chạy đến chỗ người lớn tin cậy nhé!",
+    "sound": "tu-bao-ve-minh.mp3"
+  },
+  {
+    "name": "Chia sẻ đồ chơi",
+    "emoji": "🤝",
+    "description": "Khi chơi với bạn, con hãy chia sẻ đồ chơi để cùng vui vẻ nhé!",
+    "sound": "chia-se-do-choi.mp3"
+  },
+  {
+    "name": "Gọi người lớn khi cần",
+    "emoji": "🗣️",
+    "description": "Khi gặp khó khăn, con hãy gọi người lớn giúp đỡ!",
+    "sound": "goi-nguoi-lon-khi-can.mp3"
+  },
+  {
+    "name": "Nhận biết cảm xúc",
+    "emoji": "😊😢",
+    "description": "Con hãy học cách nhận biết mình đang vui, buồn hay tức giận!",
+    "sound": "nhan-biet-cam-xuc.mp3"
+  },
+  {
+    "name": "Xếp hàng trật tự",
+    "emoji": "🧍",
+    "description": "Khi ở trường, con hãy xếp hàng ngay ngắn để vào lớp hoặc lấy đồ ăn nhé!",
+    "sound": "xep-hang-trat-tu.mp3"
+  },
+  {
+    "name": "Giữ im lặng trong lớp",
+    "emoji": "🤫",
+    "description": "Khi cô giáo giảng bài, con hãy giữ im lặng để không làm ồn và nghe được bài giảng nhé!",
+    "sound": "giu-im-lang-trong-lop.mp3"
+  },
+  {
+    "name": "Giải quyết tranh cãi",
+    "emoji": "🤔",
+    "description": "Nếu con và bạn cãi nhau, hãy cùng nhau nói chuyện để giải quyết nhé!",
+    "sound": "giai-quyet-tranh-cai.mp3"
+  },
+  {
+    "name": "Hỏi ý kiến trước khi dùng đồ của người khác",
+    "emoji": "❓",
+    "description": "Nếu con muốn mượn đồ của bạn, con hãy hỏi ý kiến bạn trước nhé!",
+    "sound": "hoi-y-kien-truoc-khi-dung-do-cua-nguoi-khac.mp3"
+  },
+  {
+    "name": "Đi vệ sinh đúng chỗ",
+    "emoji": "🚽",
+    "description": "Con nhớ đi vệ sinh vào nhà vệ sinh nhé!",
+    "sound": "di-ve-sinh-dung-cho.mp3"
+  },
+  {
+    "name": "Giữ trật tự",
+    "emoji": "🤫",
+    "description": "Ở nơi công cộng, con hãy giữ trật tự, không làm ồn nha!",
+    "sound": "giu-trat-tu.mp3"
+  },
+  {
+    "name": "Đi vệ sinh đúng nơi",
+    "emoji": "🚽",
+    "description": "Con hãy đi vệ sinh vào nhà vệ sinh nhé!",
+    "sound": "di-ve-sinh-dung-noi.mp3"
+  },
+  {
+    "name": "Không nhận quà từ người lạ",
+    "emoji": "🙅‍♀️",
+    "description": "Con không được nhận quà hoặc đi theo người lạ nhé, hãy luôn ở gần bố mẹ!",
+    "sound": "khong-nhan-qua-tu-nguoi-la.mp3"
+  },
+  {
+    "name": "Bỏ rác đúng nơi",
+    "emoji": "🗑️",
+    "description": "Con hãy bỏ rác vào thùng rác để bảo vệ môi trường nha!",
+    "sound": "bo-rac-dung-noi.mp3"
+  },
+  {
+    "name": "Nói 'con không biết' khi không hiểu",
+    "emoji": "🤔",
+    "description": "Nếu con không hiểu điều gì, con hãy nói 'con không biết' để được giải thích lại nhé!",
+    "sound": "noi-con-khong-biet-khi-khong-hieu.mp3"
+  },
+  {
+    "name": "Nhận lỗi khi làm sai",
+    "emoji": "😔",
+    "description": "Khi làm điều gì sai, con hãy dũng cảm nhận lỗi và sửa sai nhé!",
+    "sound": "nhan-loi-khi-lam-sai.mp3"
+  },
+  {
+    "name": "Không đánh bạn",
+    "emoji": "🚷",
+    "description": "Con không được đánh bạn vì đánh bạn là không tốt nhé!",
+    "sound": "khong-danh-ban.mp3"
+  },
+  {
+    "name": "Nói thật",
+    "emoji": "🗣️",
+    "description": "Con hãy luôn nói thật, vì nói dối là không tốt nha!",
+    "sound": "noi-that.mp3"
+  },
+  {
+    "name": "Chăm sóc thú cưng",
+    "emoji": "🐈",
+    "description": "Con hãy chăm sóc thú cưng của mình bằng cách cho ăn, cho uống và chơi với chúng nha!",
+    "sound": "cham-soc-thu-cung.mp3"
+  },
+  {
+    "name": "Nhận biết nguy hiểm",
+    "emoji": "⚠️",
+    "description": "Con cần cẩn thận với người lạ và những nơi nguy hiểm như đường phố, ao hồ nha!",
+    "sound": "nhan-biet-nguy-hiem.mp3"
+  },
+  {
+    "name": "Biết giúp đỡ người khác",
+    "emoji": "🙋",
+    "description": "Nếu con thấy ai đó cần giúp đỡ, con hãy giúp đỡ trong khả năng của mình nhé!",
+    "sound": "biet-giup-do-nguoi-khac.mp3"
+  },
+  {
+    "name": "Không vứt rác bừa bãi",
+    "emoji": "🗑️",
+    "description": "Con hãy vứt rác vào thùng rác để giữ gìn vệ sinh chung nhé!",
+    "sound": "khong-vut-rac-bua-bai.mp3"
+  },
+  {
+    "name": "Nói chuyện nhẹ nhàng",
+    "emoji": "🗣️",
+    "description": "Con hãy nói chuyện nhẹ nhàng, không nên la hét to tiếng nhé!",
+    "sound": "noi-chuyen-nhe-nhang.mp3"
+  }
+]

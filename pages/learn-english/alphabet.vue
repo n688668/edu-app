@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import confetti from 'canvas-confetti'
-import { Howl } from 'howler'
-
 useHead({
   title: 'Bảng Chữ Cái Tiếng Anh',
 })
@@ -41,22 +38,22 @@ function letterToFilename(letter: string): string {
 }
 
 // Phát âm chữ cái
-function playSound(letter: string, event: MouseEvent) {
+async function playSound(event: MouseEvent, letter: string) {
+  const { shootAtCursor } = useConfetti()
+  const { playFallback } = useFallbackSound()
+  const { tryPlay } = usePlayAudio()
+
   const filename = letterToFilename(letter)
-  const sound = new Howl({
-    src: [`/sounds/english/alphabet/${filename}.mp3`],
-  })
-  sound.play()
+  const src = `/sounds/english/alphabet/${filename}.mp3`
 
-  // Lấy tọa độ click trên màn hình để tạo pháo bông tại đó
-  const x = event.clientX / window.innerWidth
-  const y = event.clientY / window.innerHeight
+  // Bắn pháo bông
+  shootAtCursor(event)
 
-  confetti({
-    particleCount: 100,
-    spread: 70,
-    origin: { x, y },
-  })
+  if (await tryPlay(src))
+    return
+
+  // Nếu thất bại, fallback
+  playFallback()
 }
 </script>
 
@@ -71,7 +68,7 @@ function playSound(letter: string, event: MouseEvent) {
         v-for="letter in alphabet"
         :key="`QiNhe${letter}`"
         class="bg-white rounded-xl shadow-md px-3 py-5 text-center text-5xl font-bold text-purple-600 cursor-pointer select-none transition-transform duration-200 active:scale-150"
-        @click="(e) => playSound(letter, e)"
+        @click="(e) => playSound(e, letter)"
       >
         {{ letter }}
         <span class="text-2xl align-bottom text-gray-500 ml-1">{{ letter.toLowerCase() }}</span>

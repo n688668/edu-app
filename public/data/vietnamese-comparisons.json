@@ -1,0 +1,352 @@
+[
+  {
+    "question": "Con voi 🐘 to hơn hay con kiến 🐜 to hơn?",
+    "options": [
+      { "type": 1, "label": "Con voi", "emoji": "🐘", "correct": true },
+      { "type": 2, "label": "Con kiến", "emoji": "🐜" }
+    ]
+  },
+  {
+    "question": "Cái bút chì ✏️ dài hơn hay cục tẩy ⚪ dài hơn?",
+    "options": [
+      { "type": 2, "label": "Cục tẩy", "emoji": "⚪" },
+      { "type": 1, "label": "Cái bút chì", "emoji": "✏️", "correct": true }
+    ]
+  },
+  {
+    "question": "Chiếc xe tải 🚚 khỏe hơn hay chiếc xe đạp 🚲 khỏe hơn?",
+    "options": [
+      { "type": 1, "label": "Chiếc xe tải", "emoji": "🚚", "correct": true },
+      { "type": 2, "label": "Chiếc xe đạp", "emoji": "🚲" }
+    ]
+  },
+  {
+    "question": "Quả dưa hấu 🍉 lớn hơn hay quả nho 🍇 lớn hơn?",
+    "options": [
+      { "type": 1, "label": "Quả dưa hấu", "emoji": "🍉", "correct": true },
+      { "type": 2, "label": "Quả nho", "emoji": "🍇" }
+    ]
+  },
+  {
+    "question": "Con gấu 🐻 mập hơn hay con mèo 🐱 mập hơn?",
+    "options": [
+      { "type": 2, "label": "Con mèo", "emoji": "🐱" },
+      { "type": 1, "label": "Con gấu", "emoji": "🐻", "correct": true }
+    ]
+  },
+  {
+    "question": "Ngọn núi ⛰️ cao hơn hay cái cây 🌳 cao hơn?",
+    "options": [
+      { "type": 1, "label": "Ngọn núi", "emoji": "⛰️", "correct": true },
+      { "type": 2, "label": "Cái cây", "emoji": "🌳" }
+    ]
+  },
+  {
+    "question": "Quyển sách 📚 dày hơn hay tờ giấy 📄 dày hơn?",
+    "options": [
+      { "type": 2, "label": "Tờ giấy", "emoji": "📄" },
+      { "type": 1, "label": "Quyển sách", "emoji": "📚", "correct": true }
+    ]
+  },
+  {
+    "question": "Con rùa 🐢 chậm hơn hay con thỏ 🐇 chậm hơn?",
+    "options": [
+      { "type": 3, "label": "Con thỏ", "emoji": "🐇" },
+      { "type": 3, "label": "Con rùa", "emoji": "🐢", "correct": true }
+    ]
+  },
+  {
+    "question": "Bầu trời ☁️ rộng hơn hay cái ao 🏞️ rộng hơn?",
+    "options": [
+      { "type": 2, "label": "Cái ao", "emoji": "🏞️" },
+      { "type": 1, "label": "Bầu trời", "emoji": "☁️", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái bàn to hơn hay cái ghế to hơn?",
+    "options": [
+      { "type": 1, "label": "Cái bàn", "emoji": "🪑", "correct": true },
+      { "type": 2, "label": "Cái ghế", "emoji": "🪑" }
+    ]
+  },
+  {
+    "question": "Quả bóng rổ 🏀 to hơn hay quả bóng tennis 🎾 to hơn?",
+    "options": [
+      { "type": 2, "label": "Quả bóng tennis", "emoji": "🎾" },
+      { "type": 1, "label": "Quả bóng rổ", "emoji": "🏀", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái nhà cao tầng 🏢 cao hơn hay ngôi nhà 🏠 cao hơn?",
+    "options": [
+      { "type": 2, "label": "Ngôi nhà", "emoji": "🏠" },
+      { "type": 1, "label": "Cái nhà cao tầng", "emoji": "🏢", "correct": true }
+    ]
+  },
+  {
+    "question": "Con voi 🐘 nặng hơn hay con chó 🐕 nặng hơn?",
+    "options": [
+      { "type": 1, "label": "Con voi", "emoji": "🐘", "correct": true },
+      { "type": 2, "label": "Con chó", "emoji": "🐕" }
+    ]
+  },
+  {
+    "question": "Con sâu 🐛 dài hơn hay con kiến 🐜 dài hơn?",
+    "options": [
+      { "type": 1, "label": "Con sâu", "emoji": "🐛", "correct": true },
+      { "type": 2, "label": "Con kiến", "emoji": "🐜" }
+    ]
+  },
+  {
+    "question": "Cái chăn ấm hơn hay cái áo phông ấm hơn?",
+    "options": [
+      { "type": 2, "label": "Cái áo phông", "emoji": "👕" },
+      { "type": 1, "label": "Cái chăn", "emoji": "🛌", "correct": true }
+    ]
+  },
+  {
+    "question": "Mặt trời 🌞 nóng hơn hay mặt trăng 🌙 nóng hơn?",
+    "options": [
+      { "type": 3, "label": "Mặt trăng", "emoji": "🌙" },
+      { "type": 3, "label": "Mặt trời", "emoji": "🌞", "correct": true }
+    ]
+  },
+  {
+    "question": "Cây táo 🍎 nhiều quả hơn hay cây chuối 🍌 nhiều quả hơn?",
+    "options": [
+      { "type": 3, "label": "Cây chuối", "emoji": "🍌" },
+      { "type": 3, "label": "Cây táo", "emoji": "🍎", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái tủ lạnh to hơn hay cái lò vi sóng to hơn?",
+    "options": [
+      { "type": 1, "label": "Cái tủ lạnh", "emoji": "🧊", "correct": true },
+      { "type": 2, "label": "Cái lò vi sóng", "emoji": "🔥" }
+    ]
+  },
+  {
+    "question": "Con sư tử 🦁 mạnh hơn hay con gà 🐔 mạnh hơn?",
+    "options": [
+      { "type": 2, "label": "Con gà", "emoji": "🐔" },
+      { "type": 1, "label": "Con sư tử", "emoji": "🦁", "correct": true }
+    ]
+  },
+  {
+    "question": "Con cá voi 🐳 lớn hơn hay con cá heo 🐬 lớn hơn?",
+    "options": [
+      { "type": 1, "label": "Con cá voi", "emoji": "🐳", "correct": true },
+      { "type": 2, "label": "Con cá heo", "emoji": "🐬" }
+    ]
+  },
+  {
+    "question": "Cái xe bus 🚌 dài hơn hay cái xe con 🚗 dài hơn?",
+    "options": [
+      { "type": 2, "label": "Cái xe con", "emoji": "🚗" },
+      { "type": 1, "label": "Cái xe bus", "emoji": "🚌", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái ly thủy tinh dễ vỡ hơn hay cái ly nhựa dễ vỡ hơn?",
+    "options": [
+      { "type": 3, "label": "Cái ly nhựa", "emoji": "🥤" },
+      { "type": 3, "label": "Cái ly thủy tinh", "emoji": "🥃", "correct": true }
+    ]
+  },
+  {
+    "question": "Con hổ 🐅 khỏe hơn hay con mèo 🐈 khỏe hơn?",
+    "options": [
+      { "type": 2, "label": "Con mèo", "emoji": "🐈" },
+      { "type": 1, "label": "Con hổ", "emoji": "🐅", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái gối mềm hơn hay cục đá mềm hơn?",
+    "options": [
+      { "type": 2, "label": "Cục đá", "emoji": "🧊" },
+      { "type": 1, "label": "Cái gối", "emoji": "🛌", "correct": true }
+    ]
+  },
+  {
+    "question": "Con voi 🐘 cao hơn hay con hươu cao cổ 🦒 cao hơn?",
+    "options": [
+      { "type": 2, "label": "Con voi", "emoji": "🐘" },
+      { "type": 1, "label": "Con hươu cao cổ", "emoji": "🦒", "correct": true }
+    ]
+  },
+  {
+    "question": "Con hà mã 🦛 mập hơn hay con lợn 🐖 mập hơn?",
+    "options": [
+      { "type": 2, "label": "Con lợn", "emoji": "🐖" },
+      { "type": 1, "label": "Con hà mã", "emoji": "🦛", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái đường hầm 🚇 dài hơn hay cái cầu vượt 🌉 dài hơn?",
+    "options": [
+      { "type": 2, "label": "Cái cầu vượt", "emoji": "🌉" },
+      { "type": 1, "label": "Cái đường hầm", "emoji": "🚇", "correct": true }
+    ]
+  },
+  {
+    "question": "Mùa hè nóng hơn hay mùa đông nóng hơn?",
+    "options": [
+      { "type": 3, "label": "Mùa đông", "emoji": "❄️" },
+      { "type": 3, "label": "Mùa hè", "emoji": "☀️", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái xe máy 🛵 nhanh hơn hay cái xe đạp 🚲 nhanh hơn?",
+    "options": [
+      { "type": 2, "label": "Cái xe đạp", "emoji": "🚲" },
+      { "type": 1, "label": "Cái xe máy", "emoji": "🛵", "correct": true }
+    ]
+  },
+  {
+    "question": "Con chó con 🐶 nhỏ hơn hay con chó lớn 🐕 nhỏ hơn?",
+    "options": [
+      { "type": 1, "label": "Con chó lớn", "emoji": "🐕" },
+      { "type": 2, "label": "Con chó con", "emoji": "🐶", "correct": true }
+    ]
+  },
+  {
+    "question": "Quả táo 🍎 ngọt hơn hay quả chanh 🍋 ngọt hơn?",
+    "options": [
+      { "type": 3, "label": "Quả chanh", "emoji": "🍋" },
+      { "type": 3, "label": "Quả táo", "emoji": "🍎", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái tủ quần áo to hơn hay cái bàn học to hơn?",
+    "options": [
+      { "type": 2, "label": "Cái bàn học", "emoji": "📚" },
+      { "type": 1, "label": "Cái tủ quần áo", "emoji": "👚", "correct": true }
+    ]
+  },
+  {
+    "question": "Con bò sữa 🐄 lớn hơn hay con dê 🐐 lớn hơn?",
+    "options": [
+      { "type": 2, "label": "Con dê", "emoji": "🐐" },
+      { "type": 1, "label": "Con bò sữa", "emoji": "🐄", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái giường rộng hơn hay cái ghế rộng hơn?",
+    "options": [
+      { "type": 2, "label": "Cái ghế", "emoji": "🪑" },
+      { "type": 1, "label": "Cái giường", "emoji": "🛌", "correct": true }
+    ]
+  },
+  {
+    "question": "Con cá sấu 🐊 dài hơn hay con rắn 🐍 dài hơn?",
+    "options": [
+      { "type": 2, "label": "Con cá sấu", "emoji": "🐊" },
+      { "type": 1, "label": "Con rắn", "emoji": "🐍", "correct": true }
+    ]
+  },
+  {
+    "question": "Bà cao hơn hay em bé cao hơn?",
+    "options": [
+      { "type": 2, "label": "Em bé", "emoji": "👶" },
+      { "type": 1, "label": "Bà", "emoji": "👵", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái gì to hơn: cái xe tải 🚚 hay cái ô tô 🚗?",
+    "options": [
+      { "type": 2, "label": "Cái ô tô", "emoji": "🚗" },
+      { "type": 1, "label": "Cái xe tải", "emoji": "🚚", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái nào nặng hơn: cục đá 🧊 hay cục bông gòn ☁️?",
+    "options": [
+      { "type": 2, "label": "Cục bông gòn", "emoji": "☁️" },
+      { "type": 1, "label": "Cục đá", "emoji": "🧊", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái nào cao hơn: cái cây 🌳 hay ngọn cỏ 🌾?",
+    "options": [
+      { "type": 2, "label": "Ngọn cỏ", "emoji": "🌾" },
+      { "type": 1, "label": "Cái cây", "emoji": "🌳", "correct": true }
+    ]
+  },
+  {
+    "question": "Con nào to hơn: con mèo 🐈 hay con chuột 🐭?",
+    "options": [
+      { "type": 1, "label": "Con mèo", "emoji": "🐈", "correct": true },
+      { "type": 2, "label": "Con chuột", "emoji": "🐭" }
+    ]
+  },
+  {
+    "question": "Cái nào dài hơn: sợi mì 🍜 hay hạt gạo 🍚?",
+    "options": [
+      { "type": 2, "label": "Hạt gạo", "emoji": "🍚" },
+      { "type": 1, "label": "Sợi mì", "emoji": "🍜", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái nào rộng hơn: sân nhà 🏡 hay căn phòng 🚪?",
+    "options": [
+      { "type": 2, "label": "Căn phòng", "emoji": "🚪" },
+      { "type": 1, "label": "Sân nhà", "emoji": "🏡", "correct": true }
+    ]
+  },
+  {
+    "question": "Ai cao hơn: bố 👨 hay con 👧?",
+    "options": [
+      { "type": 2, "label": "Con", "emoji": "👧" },
+      { "type": 1, "label": "Bố", "emoji": "👨", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái gì dày hơn: tấm gỗ 🪵 hay tờ giấy 📃?",
+    "options": [
+      { "type": 2, "label": "Tờ giấy", "emoji": "📃" },
+      { "type": 1, "label": "Tấm gỗ", "emoji": "🪵", "correct": true }
+    ]
+  },
+  {
+    "question": "Con vật nào chạy nhanh hơn: con báo 🐆 hay con chó 🐕?",
+    "options": [
+      { "type": 2, "label": "Con chó", "emoji": "🐕" },
+      { "type": 1, "label": "Con báo", "emoji": "🐆", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái nào to hơn: quả bí ngô 🎃 hay quả cam 🍊?",
+    "options": [
+      { "type": 2, "label": "Quả cam", "emoji": "🍊" },
+      { "type": 1, "label": "Quả bí ngô", "emoji": "🎃", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái nào cao hơn: cây dừa 🌴 hay cây nấm 🍄?",
+    "options": [
+      { "type": 2, "label": "Cây nấm", "emoji": "🍄" },
+      { "type": 1, "label": "Cây dừa", "emoji": "🌴", "correct": true }
+    ]
+  },
+  {
+    "question": "Ai khỏe hơn: con kiến 🐜 hay con voi 🐘?",
+    "options": [
+      { "type": 2, "label": "Con kiến", "emoji": "🐜" },
+      { "type": 1, "label": "Con voi", "emoji": "🐘", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái nào dài hơn: con sâu 🐛 hay sợi tóc 💇?",
+    "options": [
+      { "type": 2, "label": "Sợi tóc", "emoji": "💇" },
+      { "type": 1, "label": "Con sâu", "emoji": "🐛", "correct": true }
+    ]
+  },
+  {
+    "question": "Cái nào rộng hơn: cái sân chơi 🎡 hay cái bàn học 📚?",
+    "options": [
+      { "type": 2, "label": "Cái bàn học", "emoji": "📚" },
+      { "type": 1, "label": "Cái sân chơi", "emoji": "🎡", "correct": true }
+    ]
+  }
+]

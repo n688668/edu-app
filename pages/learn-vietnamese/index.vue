@@ -10,11 +10,6 @@ const items = [
     icon: '🧩',
     path: '/learn-vietnamese/syllables',
   },
-  {
-    title: 'Đọc từ đơn giản',
-    icon: '📖',
-    path: '/learn-vietnamese/simple-words',
-  },
   { title: 'Tập viết chữ', icon: '✍️', path: '/learn-vietnamese/writing' },
   {
     title: 'Phân biệt âm vần',

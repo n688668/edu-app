@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Howl } from 'howler'
-
 useHead({
   title: 'Số Đếm (Numbers)',
 })
@@ -75,11 +73,19 @@ const numbers = Array.from({ length: 101 }, (_, i) => ({
   color: baseColors[i % baseColors.length],
 }))
 
-function playSound(number: any) {
-  const sound = new Howl({
-    src: [number.sound],
-  })
-  sound.play()
+async function playSound(event: MouseEvent, number: any) {
+  const { shootAtCursor } = useConfetti()
+  const { playFallback } = useFallbackSound()
+  const { tryPlay } = usePlayAudio()
+
+  // Bắn pháo bông
+  shootAtCursor(event)
+
+  if (await tryPlay(number.sound))
+    return
+
+  // Nếu thất bại, fallback
+  playFallback()
 }
 </script>
 
@@ -95,7 +101,7 @@ function playSound(number: any) {
         :key="`qXLpa${number.label}`"
         :style="{ backgroundColor: number.color }"
         class="rounded-2xl shadow-lg p-6 flex flex-col items-center justify-center cursor-pointer active:scale-110 transition"
-        @click="playSound(number)"
+        @click="(e) => playSound(e, number)"
       >
         <span class="text-white text-5xl font-bold drop-shadow-md">
           {{ number.label }}

@@ -9,29 +9,20 @@ let correctSound: Howl | null = null
 let wrongSound: Howl | null = null
 
 const isLoading = ref(true)
-
-const prompt = `
-Hãy tạo một mảng JSON gồm 20 từ ngẫu nhiên tiếng Anh dành cho trẻ em, mỗi phần tử có dạng:
-{
-  "icon": "emoji phù hợp đáp án",
-  "answer": "Đáp án chính xác",
-  "options": "Mảng gồm 3 từ ngẫu nhiên để lựa chọn, trong đó có 1 từ là đáp án",
-  "result": null
-}
-Chỉ trả về mảng JSON. Các từ nên dễ hiểu với trẻ từ 3-6 tuổi.
-`
-const { data: wordPairs, fetchWords } = useGeminiWords(prompt)
+const wordPairs = ref<any[]>([])
 
 async function fetchData() {
   isLoading.value = true
   try {
-    // Bước 1: Loại bỏ các dòng bắt đầu bằng ```
-    await fetchWords()
+    const res = await fetch('/data/english-words-match.json')
+    const allWords = await res.json()
+
+    // Shuffle và chọn ngẫu nhiên 12 từ
+    wordPairs.value = allWords.sort(() => 0.5 - Math.random()).slice(0, 12)
 
     isLoading.value = false
   }
   catch {
-    // Nếu lỗi, giữ nguyên defaultWords
     isLoading.value = false
   }
 }
@@ -47,9 +38,6 @@ function selectOption(index: number, option: string) {
   checkAnswer(index, option)
 }
 
-// function checkAnswer(index: any, selected: any) {
-//   wordPairs.value[index].result = selected === wordPairs.value[index].answer ? 'correct' : 'wrong'
-// }
 function checkAnswer(index: number, selected: string) {
   const isCorrect = selected === wordPairs.value[index].answer
   wordPairs.value[index].result = isCorrect ? 'correct' : 'wrong'
@@ -79,7 +67,7 @@ function checkAnswer(index: number, selected: string) {
         🔤 Phân Biệt Từ (Word Match)
       </h1>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div
           v-for="(pair, index) in wordPairs"
           :key="`blMth${index}`"
