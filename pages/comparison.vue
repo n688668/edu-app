@@ -33,6 +33,14 @@ onMounted(() => {
   fetchData()
 })
 
+async function playSoundQuestion(text: string, path: any = null) {
+  const { tryPlay } = usePlayAudio()
+
+  const filename = letterToFilename(text)
+
+  await tryPlay(`/sounds/vietnamese/${path || 'words'}/${filename}.mp3`)
+}
+
 function playSound(correct) {
   const sound = new Howl({
     src: [correct ? '/sounds/correct.mp3' : '/sounds/wrong.mp3'],
@@ -105,8 +113,13 @@ function getEmojiSize(option) {
         📏 So Sánh
       </h1>
 
-      <div class="text-3xl text-center font-semibold mb-8">
-        {{ questions[current].question }}
+      <div class="flex justify-center items-center gap-4 mb-10" @click="playSoundQuestion(questions[current].question)">
+        <div class="text-3xl text-center font-semibold mb-8">
+          {{ questions[current].question }}
+        </div>
+        <button class="text-5xl">
+          🔊
+        </button>
       </div>
 
       <div class="grid grid-cols-2 gap-6 justify-items-center">
