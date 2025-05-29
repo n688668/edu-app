@@ -84,7 +84,7 @@ async function playSound(text: string, path: any = null) {
 
   const filename = letterToFilename(text)
 
-  await tryPlay(`/sounds/vietnamese/${path || 'rhymes'}/${filename}.mp3`)
+  await tryPlay(`/sounds/vietnamese/${path || 'words'}/${filename}.mp3`)
 }
 
 function handleSelectOption(option: string) {

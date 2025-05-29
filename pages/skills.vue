@@ -14,13 +14,7 @@ async function fetchData() {
     const allWords = await res.json()
 
     // Shuffle và chọn ngẫu nhiên 12 từ
-    const shuffled = allWords.sort(() => 0.5 - Math.random()).slice(0, 20)
-
-    // Gán sound dựa trên name
-    skills.value = shuffled.map((word: any) => ({
-      ...word,
-      sound: `/sounds/english/words/${word.sound}.mp3`,
-    }))
+    skills.value = allWords.sort(() => 0.5 - Math.random()).slice(0, 20)
 
     isLoading.value = false
   }
@@ -47,7 +41,7 @@ async function playSound(event: MouseEvent, skill: any) {
   // Bắn pháo bông
   shootAtCursor(event)
 
-  if (await tryPlay(skill.sound))
+  if (await tryPlay(`/sounds/english/words/${skill.text}.mp3`))
     return
 
   // Nếu thất bại, fallback
@@ -75,7 +69,7 @@ async function playSound(event: MouseEvent, skill: any) {
             {{ skill.emoji }}
           </div>
           <div class="text-lg font-semibold text-pink-900 text-center select-none">
-            {{ skill.name }}
+            {{ skill.text }}
           </div>
         </div>
       </div>
@@ -96,7 +90,7 @@ async function playSound(event: MouseEvent, skill: any) {
             {{ selectedSkill.emoji }}
           </div>
           <h2 class="text-3xl font-bold text-pink-800 mb-4 select-none">
-            {{ selectedSkill.name }}
+            {{ selectedSkill.text }}
           </h2>
           <p class="text-xl text-gray-700 mb-6 select-none">
             {{ selectedSkill.description }}
