@@ -41,8 +41,8 @@ async function handleRhymeClick(r: Rhyme) {
   // Phát âm text trước (ví dụ: "nh")
   await playSound(r.text)
 
-  // Đợi 1 giây trước khi phát phần ghép
-  await new Promise(resolve => setTimeout(resolve, 1000))
+  // Đợi 1.5 giây trước khi phát phần ghép
+  await new Promise(resolve => setTimeout(resolve, 1500))
 
   // Sau đó phát âm result (ví dụ: "nha")
   await playSound(r.result)

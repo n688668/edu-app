@@ -79,19 +79,19 @@ const currentWord = computed(() => {
   }
 })
 
-async function playSound(text: string) {
+async function playSound(text: string, path: any = null) {
   const { tryPlay } = usePlayAudio()
 
   const filename = letterToFilename(text)
 
-  await tryPlay(`/sounds/vietnamese/rhymes/${filename}.mp3`)
+  await tryPlay(`/sounds/vietnamese/${path || 'words'}/${filename}.mp3`)
 }
 
 function handleSelectOption(option: string) {
   if (checked.value)
     return
   selectedOption.value = option
-  playSound(option)
+  playSound(option, 'syllables')
 }
 
 function checkAnswer() {

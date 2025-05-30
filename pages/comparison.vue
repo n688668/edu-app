@@ -19,7 +19,7 @@ async function fetchData() {
     const res = await fetch('/data/vietnamese-comparisons.json')
     const allWords = await res.json()
 
-    // Shuffle và chọn ngẫu nhiên 12 từ
+    // Shuffle và chọn ngẫu nhiên 20 từ
     questions.value = allWords.sort(() => 0.5 - Math.random()).slice(0, 20)
 
     isLoading.value = false
@@ -32,6 +32,12 @@ async function fetchData() {
 onMounted(() => {
   fetchData()
 })
+
+async function playSoundQuestion(text: string) {
+  const { tryPlay } = usePlayAudio()
+
+  await tryPlay(`/sounds/vietnamese/words/${text}.mp3`)
+}
 
 function playSound(correct) {
   const sound = new Howl({
@@ -105,8 +111,13 @@ function getEmojiSize(option) {
         📏 So Sánh
       </h1>
 
-      <div class="text-3xl text-center font-semibold mb-8">
-        {{ questions[current].question }}
+      <div class="flex justify-center items-center gap-4 mb-10" @click="playSoundQuestion(questions[current].slug)">
+        <div class="text-3xl text-center font-semibold mb-8">
+          {{ questions[current].question }}
+        </div>
+        <button class="text-5xl">
+          🔊
+        </button>
       </div>
 
       <div class="grid grid-cols-2 gap-6 justify-items-center">

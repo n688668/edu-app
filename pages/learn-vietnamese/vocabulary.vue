@@ -15,10 +15,10 @@ async function fetchData() {
     // Shuffle và chọn ngẫu nhiên 12 từ
     const shuffled = allWords.sort(() => 0.5 - Math.random()).slice(0, 20)
 
-    // Gán sound dựa trên name
+    // Gán sound dựa trên text
     simpleWords.value = shuffled.map((word: any) => ({
       ...word,
-      sound: `/sounds/vietnamese/words/${word.name}.mp3`,
+      sound: `/sounds/vietnamese/words/${word.text}.mp3`,
     }))
 
     isLoading.value = false

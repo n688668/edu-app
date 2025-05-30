@@ -22,3 +22,9 @@ logs
 .env
 .env.*
 !.env.example
+
+public/sounds/*
+!public/sounds/.gitkeep
+
+public/data/*
+!public/data/.gitkeep
