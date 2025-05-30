@@ -35,17 +35,19 @@ async function playSound(event: MouseEvent, skill: any) {
   selectedSkill.value = skill
 
   const { shootAtCursor } = useConfetti()
-  const { playFallback } = useFallbackSound()
   const { tryPlay } = usePlayAudio()
 
   // Bắn pháo bông
   shootAtCursor(event)
 
-  if (await tryPlay(`/sounds/english/words/${skill.text}.mp3`))
-    return
+  // Phát tieu de
+  await tryPlay(`/sounds/vietnamese/words/${skill.slug}.mp3`)
 
-  // Nếu thất bại, fallback
-  playFallback()
+  // Đợi 1.5 giây trước khi phát phần ghép
+  await new Promise(resolve => setTimeout(resolve, 1500))
+
+  // Sau đó phát mo ta
+  await tryPlay(`/sounds/vietnamese/words/${skill.description_slug}.mp3`)
 }
 </script>
 
