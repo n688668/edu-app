@@ -49,7 +49,7 @@ function selectCard(card) {
       const [a, b] = selected.value
       if (a.emoji === b.emoji) {
         if (!tapSound) {
-          tapSound = new Howl({ src: ['/sounds/bubble-pop.mp3'], volume: 1.0 })
+          tapSound = new Howl({ src: ['/sounds/bubble-pop.mp3'], volume: 1.5 })
         }
         tapSound.play()
         confetti()

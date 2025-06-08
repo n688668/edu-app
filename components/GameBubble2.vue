@@ -11,6 +11,7 @@ let wrongSound: Howl | null = null
 const canvas = ref<HTMLCanvasElement | null>(null)
 const gameOver = ref(false)
 const canvasHeight = ref(0)
+let userInteracted = false
 
 let ctx: CanvasRenderingContext2D
 let width: number, height: number
@@ -192,6 +193,42 @@ function animate() {
 
   requestAnimationFrame(animate)
 }
+function getThreeBubblesForCurrent() {
+  const correctLetter = alphabet[currentIndex]
+  const otherLetters = alphabet.filter((l, i) => i !== currentIndex)
+  const wrongLetters = []
+
+  while (wrongLetters.length < 2 && otherLetters.length > 0) {
+    const idx = Math.floor(Math.random() * otherLetters.length)
+    wrongLetters.push(otherLetters.splice(idx, 1)[0])
+  }
+
+  const letters = [correctLetter, ...wrongLetters]
+  const shuffled = letters.sort(() => Math.random() - 0.5)
+  return shuffled.map(createBubble)
+}
+
+function nextRound() {
+  if (currentIndex >= alphabet.length) {
+    gameOver.value = true
+    return
+  }
+
+  bubbles = getThreeBubblesForCurrent()
+
+  // Chỉ phát âm nếu đã có hành động người dùng
+  if (userInteracted) {
+    const instructionSound = new Howl({ src: ['/sounds/vietnamese/words/be-hay-bam-vao-chu.mp3'], volume: 1.5 })
+    instructionSound.play()
+
+    setTimeout(() => {
+      const letter = alphabet[currentIndex]
+      const filename = letterToFilename(letter)
+      const letterSound = new Howl({ src: [`/sounds/vietnamese/alphabet/${filename}.mp3`], volume: 1.5 })
+      letterSound.play()
+    }, 1500)
+  }
+}
 
 function handleClick(e: MouseEvent) {
   if (!correctSound) {
@@ -214,22 +251,17 @@ function handleClick(e: MouseEvent) {
       if (b.letter === alphabet[currentIndex]) {
         b.isPopped = true
         createParticles(b.x, b.y, b.color)
-        b.popTime = Date.now()
         correctSound.play()
         currentIndex++
-        if (currentIndex >= alphabet.length) {
-          gameOver.value = true
-        }
+        setTimeout(nextRound, 400) // delay nhẹ để nhìn thấy hiệu ứng
       }
       else {
-        // Hiệu ứng sai
         wrongSound.play()
         b.isWrong = true
-        b.wrongTimer = 120 // ~2 giây (60fps)
+        b.wrongTimer = 120
         const angle = Math.random() * Math.PI * 2
         b.dx = Math.cos(angle) * 5
         b.dy = Math.sin(angle) * 5
-        b.shakeStart = performance.now() // dùng để xử lý hiệu ứng nếu cần
       }
     }
   }
@@ -238,8 +270,8 @@ function handleClick(e: MouseEvent) {
 function restartGame() {
   gameOver.value = false
   currentIndex = 0
-  bubbles = alphabet.map(createBubble)
   particles = []
+  nextRound()
 }
 
 function resize() {
@@ -264,9 +296,21 @@ onMounted(() => {
   alphabet = props?.data?.split('') || []
   ctx = canvas.value!.getContext('2d')!
   resize()
-  bubbles = alphabet.map(createBubble)
   window.addEventListener('click', handleClick)
   window.addEventListener('resize', resize)
+
+  // Bắt đầu game sau tương tác đầu tiên
+  const waitForInteraction = () => {
+    if (!userInteracted) {
+      userInteracted = true
+      window.removeEventListener('click', waitForInteraction)
+      window.removeEventListener('touchstart', waitForInteraction)
+      restartGame() // chỉ khởi động game khi người dùng nhấn
+    }
+  }
+  window.addEventListener('click', waitForInteraction)
+  window.addEventListener('touchstart', waitForInteraction)
+
   animate()
 })
 

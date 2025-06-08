@@ -11,5 +11,5 @@ export default function (letter: string): string {
   }
 
   const base = letter.toLowerCase()
-  return map[letter] || base
+  return map[base] || base
 }

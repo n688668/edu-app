@@ -12,7 +12,7 @@ export function usePlayAudio() {
   const tryPlay = async (src: string): Promise<boolean> => {
     if (await checkAudio(src)) {
       try {
-        const sound = new Howl({ src: [src], volume: 1.0 })
+        const sound = new Howl({ src: [src], volume: 2.0 })
         sound.play()
         return true
       }

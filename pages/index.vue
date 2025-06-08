@@ -14,6 +14,7 @@ const learningItems = [
   { title: 'Kỹ năng', icon: '🧠', path: '/skills' },
   { title: 'Game thẻ 1', icon: '🃏', path: '/game-cards-1' },
   { title: 'Game thẻ 2', icon: '🪁', path: '/game-cards-2' },
+  { title: 'Game bong bóng', icon: '🫧', path: '/game-bubble-letter' },
 ]
 
 const { launchConfetti } = useConfetti()
