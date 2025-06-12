@@ -28,3 +28,5 @@ public/sounds/*
 
 public/data/*
 !public/data/.gitkeep
+
+.firebase/*
