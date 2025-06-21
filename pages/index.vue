@@ -16,6 +16,7 @@ const learningItems = [
   { title: 'Game thẻ 2', icon: '🪁', path: '/game-cards-2' },
   { title: 'Game bong bóng', icon: '🫧', path: '/game-bubble-letter' },
   { title: 'Heart', icon: '🫧', path: '/heart' },
+  { title: 'Heart 2', icon: '🫧', path: '/pixi-heart' },
 ]
 
 const { launchConfetti } = useConfetti()
@@ -36,7 +37,7 @@ function sayHi() {
         Cùng khám phá những điều thú vị nào!
       </p>
 
-      <div class="grid grid-cols-2 gap-6">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
         <div
           v-for="item in learningItems"
           :key="`rhTNo${item.title}`"

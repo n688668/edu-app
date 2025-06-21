@@ -28,3 +28,22 @@ public/sounds/*
 
 public/data/*
 !public/data/.gitkeep
+
+.gradle/
+android.keystore
+app-release-bundle.aab
+app-release-signed.apk
+app-release-signed.apk.idsig
+app-release-unsigned-aligned.apk
+app/
+build.gradle
+build/
+gradle.properties
+gradle/
+gradlew
+gradlew.bat
+local.properties
+manifest-checksum.txt
+settings.gradle
+store_icon.png
+twa-manifest.json
