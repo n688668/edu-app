@@ -15,7 +15,8 @@ const learningItems = [
   { title: 'Game thẻ 1', icon: '🃏', path: '/game-cards-1' },
   { title: 'Game thẻ 2', icon: '🪁', path: '/game-cards-2' },
   { title: 'Game bong bóng', icon: '🫧', path: '/game-bubble-letter' },
-  { title: 'Trái tim', icon: '💗', path: '/heart' },
+  // { title: 'Trái tim', icon: '💗', path: '/heart' },
+  { title: 'Shape', icon: '💗', path: '/shape' },
 ]
 
 const { launchConfetti } = useConfetti()
@@ -27,7 +28,7 @@ function sayHi() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-b from-pink-100 to-yellow-100 p-6">
+  <div class="min-h-screen bg-gradient-to-b from-pink-100 to-yellow-100 p-6 pt-16">
     <div class="max-w-2xl mx-auto text-center">
       <h1 class="text-4xl md:text-5xl font-bold text-pink-600 mb-4">
         🎈 Chào Rô!

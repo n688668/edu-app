@@ -73,7 +73,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-100 p-6">
+  <div class="min-h-screen bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-100 p-6 pt-16">
     <h1 class="text-4xl font-bold text-purple-700 mb-8 text-center select-none">
       🔢 Đếm Số Từ 1 đến {{ countNumbers }}
     </h1>

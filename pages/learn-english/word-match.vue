@@ -59,7 +59,7 @@ function checkAnswer(index: number, selected: string) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-pink-100 to-yellow-100 p-4 relative">
+  <div class="min-h-screen bg-gradient-to-br from-pink-100 to-yellow-100 p-4 pt-16 relative">
     <LoadingScreen v-if="isLoading" />
 
     <div v-else>

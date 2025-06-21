@@ -51,7 +51,7 @@ function playSound() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-yellow-100 p-6">
+  <div class="min-h-screen bg-gradient-to-br from-purple-100 via-pink-100 to-yellow-100 p-6 pt-16">
     <h1 class="text-3xl font-bold text-purple-700 mb-6 text-center select-none">
       🎨 Học Hình Dạng Cơ Bản
     </h1>

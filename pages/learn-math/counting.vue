@@ -98,7 +98,7 @@ options.value = generateOptions(currentItem.value.count)
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-yellow-100 to-pink-100 p-4">
+  <div class="min-h-screen bg-gradient-to-br from-yellow-100 to-pink-100 p-4 pt-16">
     <h1 class="text-3xl font-bold text-pink-600 text-center mb-4">
       🔢 Đếm số
     </h1>

@@ -93,7 +93,7 @@ function nextQuestion() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-yellow-100 to-red-100 p-4">
+  <div class="min-h-screen bg-gradient-to-br from-yellow-100 to-red-100 p-4 pt-16">
     <h1 class="text-3xl font-bold text-red-600 text-center mb-6">
       ➖ Trừ đơn giản
     </h1>

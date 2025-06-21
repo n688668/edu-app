@@ -51,7 +51,7 @@ async function handleRhymeClick(r: Rhyme) {
 
 <template>
   <div class="min-h-screen bg-pink-100 p-4">
-    <h1 class="text-3xl font-bold text-center text-pink-600 mb-6">
+    <h1 class="text-3xl font-bold text-center text-pink-600 mb-6 pt-16">
       🧩 Trò chơi Ghép Vần
     </h1>
 

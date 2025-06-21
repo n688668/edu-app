@@ -51,7 +51,7 @@ async function playSound(event: MouseEvent, word: any) {
     <LoadingScreen v-if="isLoading" />
 
     <div v-else>
-      <h1 class="text-3xl font-bold text-center text-orange-600 mb-4">
+      <h1 class="text-3xl font-bold text-center text-orange-600 mb-4 pt-16">
         📖 Từ vựng Cơ Bản
       </h1>
       <p class="text-center text-lg mb-4 text-orange-700">

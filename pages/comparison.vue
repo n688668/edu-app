@@ -103,7 +103,7 @@ function getEmojiSize(option) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-yellow-50 to-pink-100 p-6 relative">
+  <div class="min-h-screen bg-gradient-to-br from-yellow-50 to-pink-100 p-6 pt-16 relative">
     <LoadingScreen v-if="isLoading" />
 
     <div v-else>

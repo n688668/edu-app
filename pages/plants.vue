@@ -47,7 +47,7 @@ async function playSound(event: MouseEvent, word: any) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-orange-100 p-4 relative">
+  <div class="min-h-screen bg-orange-100 p-4 pt-16 relative">
     <LoadingScreen v-if="isLoading" />
 
     <div v-else>

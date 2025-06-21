@@ -95,7 +95,7 @@ function nextQuestion() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-green-100 to-yellow-100 p-4">
+  <div class="min-h-screen bg-gradient-to-br from-green-100 to-yellow-100 p-4 pt-16">
     <h1 class="text-3xl font-bold text-green-600 text-center mb-6">
       ➕ Cộng đơn giản
     </h1>

@@ -133,7 +133,7 @@ function nextWord() {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-yellow-100 to-pink-100 p-6 flex flex-col items-center relative">
+  <div class="min-h-screen bg-gradient-to-br from-yellow-100 to-pink-100 p-6 pt-16 flex flex-col items-center relative">
     <LoadingScreen v-if="isLoading" />
 
     <div v-else class="p-8 w-full max-w-md text-center">
