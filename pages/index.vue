@@ -12,11 +12,14 @@ const learningItems = [
   { title: 'Động vật', icon: '🐶', path: '/animals' },
   { title: 'Thực vật', icon: '🌱', path: '/plants' },
   { title: 'Kỹ năng', icon: '🧠', path: '/skills' },
+  { title: 'Thẻ 1', icon: '🃏', path: '/cards-1' },
+  { title: 'Thẻ 2', icon: '🪁', path: '/cards-2' },
   { title: 'Game thẻ 1', icon: '🃏', path: '/game-cards-1' },
   { title: 'Game thẻ 2', icon: '🪁', path: '/game-cards-2' },
   { title: 'Game bong bóng', icon: '🫧', path: '/game-bubble-letter' },
   { title: 'Heart', icon: '🫧', path: '/heart' },
   { title: 'Heart 2', icon: '🫧', path: '/pixi-heart' },
+  { title: 'Colors', icon: '🎨', path: '/fill-colour' },
 ]
 
 const { launchConfetti } = useConfetti()
