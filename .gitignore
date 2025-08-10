@@ -29,4 +29,6 @@ public/sounds/*
 public/data/*
 !public/data/.gitkeep
 
+public/svg/*
+
 .firebase/*
