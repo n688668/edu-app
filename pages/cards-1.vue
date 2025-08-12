@@ -8,12 +8,14 @@ useHead({
 
 let tapSound: Howl | null = null
 
-const baseItems = useSvgs()
+const carItems = useSvgsCar()
+const allItems = useSvgsAll()
+const baseItems = ref(carItems)
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1))
-    ;[array[i], array[j]] = [array[j], array[i]]
+      ;[array[i], array[j]] = [array[j], array[i]]
   }
   return array
 }
@@ -25,7 +27,7 @@ const showCongrats = ref(false)
 const revealedIds = ref(new Set())
 
 function resetGame() {
-  const selectedItems = shuffle([...baseItems]).slice(0, 6)
+  const selectedItems = shuffle([...baseItems.value]).slice(0, 6)
   const itemPairs = shuffle([...selectedItems, ...selectedItems].map((image, index) => ({
     id: `${index}-${Math.random()}`,
     image,
@@ -79,6 +81,12 @@ function isRevealed(card) {
   return revealedIds.value.has(card.id) || matchedIds.value.has(card.id)
 }
 
+// 🔹 Hàm đổi bộ hình
+function changeSet(type: 'car' | 'all') {
+  baseItems.value = type === 'car' ? carItems : allItems
+  resetGame()
+}
+
 onMounted(() => {
   resetGame()
 })
@@ -89,6 +97,16 @@ onMounted(() => {
     <h1 class="text-4xl font-bold text-purple-700 mb-8 text-center select-none">
       🃏 Chọn Thẻ
     </h1>
+
+    <!-- 🔹 Nút chọn bộ hình -->
+    <div class="flex justify-center gap-4 mb-6">
+      <button class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600" @click="changeSet('car')">
+        🚕 Xe Hơi
+      </button>
+      <button class="px-4 py-2 bg-green-500 text-white rounded-lg shadow hover:bg-green-600" @click="changeSet('all')">
+        ⭐ Tất Cả
+      </button>
+    </div>
 
     <SuccessMessage v-if="showCongrats" @click="resetGame" />
 
