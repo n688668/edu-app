@@ -10,6 +10,7 @@ const items = [
   { title: 'So sánh số lượng', icon: '⚖️', path: '/learn-math/comparison' },
   { title: 'Hình dạng cơ bản', icon: '🔺', path: '/learn-math/shapes' },
   { title: 'Game bong bóng', icon: '🫧', path: '/learn-math/game-bubble' },
+  { title: 'Tạo bài tập toán (Word)', icon: '📝', path: '/learn-math/exam' },
 ]
 </script>
 
