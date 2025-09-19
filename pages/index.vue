@@ -4,9 +4,9 @@ useHead({
 })
 
 const learningItems = [
-  { title: 'Học tiếng Việt', icon: '🅰️', path: '/learn-vietnamese' },
-  { title: 'Học tiếng Anh', icon: '🔤', path: '/learn-english' },
-  { title: 'Học Toán', icon: '➗', path: '/learn-math' },
+  { title: 'Tiếng Việt', icon: '🅰️', path: '/learn-vietnamese' },
+  { title: 'Tiếng Anh', icon: '🔤', path: '/learn-english' },
+  { title: 'Toán', icon: '➗', path: '/learn-math' },
   { title: 'Đếm số', icon: '🔢', path: '/counting' },
   { title: 'So sánh', icon: '⚖️', path: '/comparison' },
   { title: 'Động vật', icon: '🐶', path: '/animals' },
@@ -14,12 +14,12 @@ const learningItems = [
   { title: 'Kỹ năng', icon: '🧠', path: '/skills' },
   { title: 'Thẻ 1', icon: '🃏', path: '/cards-1' },
   { title: 'Thẻ 2', icon: '🪁', path: '/cards-2' },
-  { title: 'Game thẻ 1', icon: '🃏', path: '/game-cards-1' },
-  { title: 'Game thẻ 2', icon: '🪁', path: '/game-cards-2' },
-  { title: 'Game bong bóng', icon: '🫧', path: '/game-bubble-letter' },
-  { title: 'Heart', icon: '🫧', path: '/heart' },
-  { title: 'Heart 2', icon: '🫧', path: '/pixi-heart' },
-  { title: 'Colors', icon: '🎨', path: '/fill-colour' },
+  { title: 'Bong bóng', icon: '🫧', path: '/game-bubble-letter' },
+  { title: 'Heart 1', icon: '❤️', path: '/heart' },
+  { title: 'Heart 2', icon: '💗', path: '/pixi-heart' },
+  { title: 'Tô màu', icon: '🎨', path: '/fill-colour' },
+  { title: 'Thẻ 1.1', icon: '🃏', path: '/game-cards-1' },
+  { title: 'Thẻ 2.1', icon: '🪁', path: '/game-cards-2' },
 ]
 
 const { launchConfetti } = useConfetti()
@@ -40,7 +40,7 @@ function sayHi() {
         Cùng khám phá những điều thú vị nào!
       </p>
 
-      <div class="grid grid-cols-2 gap-6">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
         <div
           v-for="item in learningItems"
           :key="`rhTNo${item.title}`"
