@@ -20,7 +20,6 @@ const learningItems = [
   { title: 'Tô màu', icon: '🎨', path: '/fill-colour' },
   { title: 'Thẻ 1.1', icon: '🃏', path: '/game-cards-1' },
   { title: 'Thẻ 2.1', icon: '🪁', path: '/game-cards-2' },
-  { title: 'Game thẻ 2', icon: '🪁', path: '/game-cards-2' },
 ]
 
 const { launchConfetti } = useConfetti()
