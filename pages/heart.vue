@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-
 const canvas = ref<HTMLCanvasElement | null>(null)
 
 interface Particle {
@@ -139,7 +137,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-screen h-screen overflow-hidden" style="background-color: #ffe6f0;">
+  <div class="w-screen h-screen overflow-hidden pt-16" style="background-color: #ffe6f0;">
     <canvas ref="canvas" class="block w-full h-full" />
   </div>
 </template>

@@ -67,23 +67,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="flex items-center justify-between p-4 bg-pink-200 rounded-b-xl shadow-md">
-    <!-- Cột trái: BackButton -->
+  <header class="fixed top-1 left-1 flex items-center justify-between z-[1] overflow-clip">
     <div class="flex items-center" :class="route.path !== '/' ? 'w-full' : ''">
       <BackButton v-if="route.path !== '/'" />
     </div>
-    <!-- Cột giữa: Tiêu đề căn giữa -->
-    <div v-if="route.path === '/'" class="w-2/4 flex justify-center">
-      <h1
-        ref="titleRef"
-        class="text-xl md:text-3xl font-bold text-purple-800 select-none"
-        @click="navigateTo({ path: '/' })"
-      >
-        🎓 Bé Học Vui 🌟
-      </h1>
-    </div>
-    <!-- Cột phải: Đăng nhập/avatar -->
-    <div v-if="route.path === '/'" class="w-2/4 flex justify-end items-center">
+    <div v-if="route.path === '/'" class="flex justify-end items-center w-full">
       <button
         v-if="!user"
         class="bg-white text-pink-600 font-semibold px-4 py-2 rounded-xl shadow hover:bg-pink-100 transition"

@@ -10,11 +10,12 @@ const items = [
   { title: 'So sánh số lượng', icon: '⚖️', path: '/learn-math/comparison' },
   { title: 'Hình dạng cơ bản', icon: '🔺', path: '/learn-math/shapes' },
   { title: 'Game bong bóng', icon: '🫧', path: '/learn-math/game-bubble' },
+  { title: 'Tạo bài tập toán (Word)', icon: '📝', path: '/learn-math/exam' },
 ]
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-yellow-100 to-pink-100 p-4">
+  <div class="min-h-screen bg-gradient-to-br from-yellow-100 to-pink-100 p-4 pt-16">
     <h1 class="text-3xl font-bold text-pink-600 text-center mb-6">
       🌟 Học Toán 🌟
     </h1>

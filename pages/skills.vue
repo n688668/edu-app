@@ -52,7 +52,7 @@ async function playSound(event: MouseEvent, skill: any) {
 </script>
 
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-orange-100 via-pink-100 to-yellow-100 p-6 relative">
+  <div class="min-h-screen bg-gradient-to-br from-orange-100 via-pink-100 to-yellow-100 p-6 pt-16 relative">
     <LoadingScreen v-if="isLoading" />
 
     <div v-else>

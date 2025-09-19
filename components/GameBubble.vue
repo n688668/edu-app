@@ -277,7 +277,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="relative overflow-hidden bg-gradient-to-br from-sky-100 via-blue-100 to-green-100" :style="{ height: `${canvasHeight}px` }">
+  <div class="relative overflow-hidden bg-gradient-to-br from-sky-100 via-blue-100 to-green-100 pt-16" :style="{ height: `${canvasHeight}px` }">
     <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full" />
 
     <SuccessMessage v-if="gameOver" message="Bé đã hoàn thành rồi!" class="absolute inset-0 flex flex-col items-center justify-center" @click="restartGame" />

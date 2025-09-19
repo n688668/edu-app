@@ -195,8 +195,8 @@ function animate() {
 }
 function getThreeBubblesForCurrent() {
   const correctLetter = alphabet[currentIndex]
-  const otherLetters = alphabet.filter((l, i) => i !== currentIndex)
-  const wrongLetters = []
+  const otherLetters: string[] = alphabet.filter((l, i) => i !== currentIndex)
+  const wrongLetters: string[] = []
 
   while (wrongLetters.length < 2 && otherLetters.length > 0) {
     const idx = Math.floor(Math.random() * otherLetters.length)
@@ -206,6 +206,13 @@ function getThreeBubblesForCurrent() {
   const letters = [correctLetter, ...wrongLetters]
   const shuffled = letters.sort(() => Math.random() - 0.5)
   return shuffled.map(createBubble)
+}
+
+function shuffleArray<T>(arr: T[]): T[] {
+  return arr
+    .map(v => ({ v, sort: Math.random() }))
+    .sort((a, b) => a.sort - b.sort)
+    .map(({ v }) => v)
 }
 
 function nextRound() {
@@ -294,6 +301,8 @@ function resize() {
 
 onMounted(() => {
   alphabet = props?.data?.split('') || []
+  alphabet = shuffleArray(alphabet) // 🔹 Xáo trộn trước khi chơi
+
   ctx = canvas.value!.getContext('2d')!
   resize()
   window.addEventListener('click', handleClick)
@@ -305,7 +314,8 @@ onMounted(() => {
       userInteracted = true
       window.removeEventListener('click', waitForInteraction)
       window.removeEventListener('touchstart', waitForInteraction)
-      restartGame() // chỉ khởi động game khi người dùng nhấn
+      window.removeEventListener('touchstart', waitForInteraction)
+      restartGame()
     }
   }
   window.addEventListener('click', waitForInteraction)
@@ -321,7 +331,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="relative overflow-hidden bg-gradient-to-br from-sky-100 via-blue-100 to-green-100" :style="{ height: `${canvasHeight}px` }">
+  <div class="relative overflow-hidden bg-gradient-to-br from-sky-100 via-blue-100 to-green-100 pt-16" :style="{ height: `${canvasHeight}px` }">
     <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full" />
 
     <SuccessMessage v-if="gameOver" message="Bé đã hoàn thành rồi!" class="absolute inset-0 flex flex-col items-center justify-center" @click="restartGame" />
