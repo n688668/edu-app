@@ -17,7 +17,7 @@ interface Particle {
   phase: number
 }
 
-let app: PIXI.Application
+let app: PIXI.Application<HTMLCanvasElement>
 const particles: Particle[] = []
 const mouse = { x: -9999, y: -9999, radius: 100 }
 
@@ -37,7 +37,12 @@ onMounted(() => {
     resizeTo: window,
     backgroundColor: 0xFFE6F0,
     antialias: true,
-  })
+    // ép kiểu để TS không báo lỗi
+    contextAttributes: {
+      failIfMajorPerformanceCaveat: false,
+      powerPreference: 'high-performance',
+    } as WebGLContextAttributes,
+  } as any)
 
   nextTick(() => {
     if (app.view && container.value) {
@@ -80,7 +85,8 @@ function generateParticles() {
   const centerY = height / 2
   const colors = [0xFF1A75, 0xFF4D4D, 0xFF6666, 0xFF9999, 0xFF0033]
 
-  const count = 1000
+  // const count = 1000
+  const count = /Mobi|Android/i.test(navigator.userAgent) ? 300 : 1000
   for (let i = 0; i < count; i++) {
     const angle = Math.random() * Math.PI * 2
     const distance = Math.random() * Math.max(width, height)
@@ -262,7 +268,7 @@ function animate() {
 
 <template>
   <div class="w-screen h-screen overflow-hidden" style="background-color: #ffe6f0;">
-    <div ref="container" class="w-full h-full bg-[#ffe6f0]" />
+    <div ref="container" class="fixed inset-0 w-full h-full bg-[#ffe6f0]" />
     <div class="fixed bottom-4 left-4 z-10 flex flex-wrap gap-2 p-2 bg-white bg-opacity-70 rounded-xl shadow">
       <button
         v-for="shape in shapes"

@@ -1,31 +1,22 @@
 <script setup lang="ts">
 useHead({
-  title: 'Game tô màu',
+  title: 'Tô màu',
 })
 
 const svgList = [
   '/svg/suv-svgrepo-com.svg',
-  '/svg/car-private-car-svgrepo-com.svg',
-  '/svg/aeroplane-svgrepo-com.svg',
   '/svg/airplane-svgrepo-com.svg',
   '/svg/airport-svgrepo-com.svg',
-  '/svg/ambulance-svgrepo-com.svg',
   '/svg/big-truck-svgrepo-com.svg',
   '/svg/bike-svgrepo-com.svg',
   '/svg/boat-svgrepo-com.svg',
   '/svg/bus-svgrepo-com.svg',
   '/svg/car-svgrepo-com.svg',
-  '/svg/cycling-bicycle-svgrepo-com.svg',
   '/svg/fire-truck-svgrepo-com.svg',
   '/svg/helicopter-svgrepo-com.svg',
   '/svg/high-speed-rail-svgrepo-com.svg',
   '/svg/hot-air-balloon-svgrepo-com.svg',
-  '/svg/jeep-svgrepo-com.svg',
-  '/svg/jet-boating-svgrepo-com.svg',
-  '/svg/jet-plane-part-3-svgrepo-com.svg',
-  '/svg/minivan-taxi-svgrepo-com.svg',
   '/svg/minibus-svgrepo-com.svg',
-  '/svg/monorail-svgrepo-com.svg',
   '/svg/motorcycle-svgrepo-com.svg',
   '/svg/plane-svgrepo-com.svg',
   '/svg/police-car-svgrepo-com.svg',
@@ -35,21 +26,13 @@ const svgList = [
   '/svg/school-bus-svgrepo-com.svg',
   '/svg/scooter-scooter-svgrepo-com.svg',
   '/svg/ship-cruise-svgrepo-com.svg',
-  '/svg/sidecar-svgrepo-com.svg',
   '/svg/small-train-svgrepo-com.svg',
   '/svg/small-truck-svgrepo-com.svg',
-  '/svg/spaceship-svgrepo-com.svg',
-  '/svg/sport-car-svgrepo-com.svg',
   '/svg/taxi-svgrepo-com.svg',
   '/svg/the-bus-svgrepo-com.svg',
-  '/svg/train-svgrepo-com.svg',
   '/svg/transportation-color-car-taxi-svgrepo-com.svg',
   '/svg/transportation-color-plane-18-svgrepo-com.svg',
-  '/svg/trolleybus-svgrepo-com.svg',
   '/svg/truck-svgrepo-com.svg',
-  '/svg/ufo-svgrepo-com.svg',
-  '/svg/van-svgrepo-com.svg',
-  '/svg/volskwagen-van-svgrepo-com.svg',
 ]
 
 const currentSvg = ref<string | null>(null)
@@ -91,10 +74,21 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex flex-col items-start p-4 space-y-4 bg-gradient-to-b from-blue-100 to-blue-200 min-h-screen">
+  <div class="flex flex-col items-start p-4 pt-16 space-y-4 bg-gradient-to-b from-blue-100 to-blue-200 min-h-screen">
     <h1 class="text-xl font-bold text-center mb-4">
-      🎨 Game tô màu
+      🎨 Tô màu
     </h1>
+
+    <!-- Bảng màu -->
+    <div class="flex space-x-2 overflow-x-auto w-full px-2">
+      <button
+        v-for="(color, idx) in colors"
+        :key="idx"
+        class="flex-shrink-0 w-12 h-12 rounded-full border-4 border-white shadow-lg active:scale-90 transition"
+        :style="{ backgroundColor: color }"
+        @click="onColorClick(color)"
+      />
+    </div>
 
     <!-- Danh sách ảnh -->
     <div class="flex space-x-2 overflow-x-auto w-full px-2">
@@ -115,17 +109,6 @@ onMounted(() => {
       @click="onSvgClick"
       v-html="currentSvg"
     />
-
-    <!-- Bảng màu -->
-    <div class="flex flex-wrap justify-center gap-3 mt-4">
-      <button
-        v-for="(color, idx) in colors"
-        :key="idx"
-        class="w-12 h-12 rounded-full border-4 border-white shadow-lg active:scale-90 transition"
-        :style="{ backgroundColor: color }"
-        @click="onColorClick(color)"
-      />
-    </div>
   </div>
 </template>
 
