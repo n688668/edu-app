@@ -13,7 +13,7 @@ const learningItems = [
   { title: 'Thẻ 1', icon: '🃏', path: '/cards-1' },
   { title: 'Thẻ 2', icon: '🪁', path: '/cards-2' },
   { title: 'Bong bóng', icon: '🫧', path: '/bubble-letter' },
-  { title: 'Cá mập', icon: '🪁', path: '/shark' },
+  { title: 'Cá mập', icon: '🦈', path: '/shark' },
   { title: 'Heart 1', icon: '❤️', path: '/heart' },
   { title: 'Heart 2', icon: '💗', path: '/pixi-heart' },
   { title: 'Tô màu', icon: '🎨', path: '/fill-colour' },

@@ -2,7 +2,7 @@
 import { Howl } from 'howler'
 
 useHead({
-  title: 'Bong bóng',
+  title: 'Cá mập ăn chữ',
 })
 
 const data = ref('012345679AĂÂBCDĐEÊGHIKLMNOÔƠPQRSTUƯVXY')
@@ -23,6 +23,18 @@ let alphabet: string[] = []
 let currentIndex = 0
 const colors = ['#ff6b6b', '#6bcBef', '#ffe66d', '#48dbfb', '#1dd1a1', '#f368e0']
 
+// Cá mập
+let sharkImg: HTMLImageElement
+const shark: any = {
+  x: 0,
+  y: 0,
+  dx: 0,
+  dy: 0,
+  speed: 4,
+  angle: 0,
+  target: null as any,
+}
+
 function createBubble(letter: string) {
   const angle = Math.random() * Math.PI * 2
   const speed = 10 + Math.random() * 5
@@ -32,13 +44,11 @@ function createBubble(letter: string) {
   let baseRadius = 60
   let radiusVariation = 30
 
-  // Nếu ít chữ cái thì tăng kích thước, bất kể thiết bị
   if (fewBubbles) {
     baseRadius = 75
     radiusVariation = 25
   }
   else if (window.innerWidth < 768) {
-    // Trường hợp mobile nhiều chữ cái
     baseRadius = 50
     radiusVariation = 20
   }
@@ -48,7 +58,7 @@ function createBubble(letter: string) {
     x: width / 2,
     y: height / 2,
     radius: baseRadius + Math.random() * radiusVariation,
-    baseRadius, // Lưu lại kích thước ban đầu
+    baseRadius,
     scale: 1,
     color: colors[Math.floor(Math.random() * colors.length)],
     dx: Math.cos(angle) * speed,
@@ -93,8 +103,8 @@ function drawBubble(b: any) {
     0,
     b.radius,
   )
-  gradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)') // phần trong suốt hơn
-  gradient.addColorStop(1, `rgba(${hexToRgb(b.color)}, 0.7)`) // màu bong bóng mờ đi
+  gradient.addColorStop(0, 'rgba(255, 255, 255, 0.9)')
+  gradient.addColorStop(1, `rgba(${hexToRgb(b.color)}, 0.7)`)
 
   ctx.beginPath()
   ctx.arc(0, 0, b.radius, 0, Math.PI * 2)
@@ -103,7 +113,7 @@ function drawBubble(b: any) {
   ctx.shadowBlur = 10
   ctx.fill()
 
-  ctx.fillStyle = 'rgba(0,0,0,0.8)' // chữ hơi mờ cho nhẹ nhàng hơn
+  ctx.fillStyle = 'rgba(0,0,0,0.8)'
   ctx.font = `${b.radius * 0.8}px sans-serif`
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
@@ -113,7 +123,6 @@ function drawBubble(b: any) {
   ctx.shadowBlur = 0
 }
 
-// Hàm tiện ích chuyển hex color sang rgb để dùng với rgba
 function hexToRgb(hex: string) {
   const bigint = Number.parseInt(hex.replace('#', ''), 16)
   const r = (bigint >> 16) & 255
@@ -155,7 +164,7 @@ function updateBubbles() {
       b.dy *= -1
 
     if (b.isWrong) {
-      b.scale = 1 + 0.2 * Math.sin((120 - b.wrongTimer) / 5) // Hiệu ứng phóng to – thu nhỏ
+      b.scale = 1 + 0.2 * Math.sin((120 - b.wrongTimer) / 5)
       b.wrongTimer--
       if (b.wrongTimer <= 0) {
         b.isWrong = false
@@ -177,17 +186,101 @@ function updateParticles() {
   })
 }
 
+// 🚩 Update cá mập
+// 🚩 Update cá mập
+// 🚩 Update cá mập
+let sharkWanderTimer = 0
+let sharkWaveTime = 0
+
+function updateShark() {
+  if (shark.target && !shark.target.isPopped) {
+    const dx = shark.target.x - shark.x
+    const dy = shark.target.y - shark.y
+    const dist = Math.hypot(dx, dy)
+
+    if (dist < shark.target.radius) {
+      // Chạm bóng → nổ
+      shark.target.isPopped = true
+      createParticles(shark.target.x, shark.target.y, shark.target.color)
+      correctSound?.play()
+      currentIndex++
+      setTimeout(nextRound, 400)
+      shark.target = null
+      shark.dx = 0
+      shark.dy = 0
+    }
+    else {
+      shark.dx = (dx / dist) * shark.speed
+      shark.dy = (dy / dist) * shark.speed
+      shark.x += shark.dx
+      shark.y += shark.dy
+      shark.angle = Math.atan2(dy, dx)
+    }
+  }
+  else {
+    // 🚩 Chế độ bơi tự do (không có target)
+    if (sharkWanderTimer <= 0) {
+      const angle = Math.random() * Math.PI * 2
+      shark.dx = Math.cos(angle) * (1 + Math.random() * 0.5)
+      shark.dy = Math.sin(angle) * (1 + Math.random() * 0.5)
+      sharkWanderTimer = 120 + Math.random() * 120 // 2–4 giây
+    }
+    sharkWanderTimer--
+
+    shark.x += shark.dx
+    shark.y += shark.dy
+
+    // lượn sóng nhẹ
+    sharkWaveTime += 0.05
+    const baseAngle = Math.atan2(shark.dy, shark.dx)
+    const waveOffset = Math.sin(sharkWaveTime) * 0.2 // biên độ ~0.2 rad ≈ 11°
+    shark.angle = baseAngle + waveOffset
+
+    // tránh cá mập bơi ra ngoài màn hình
+    if (shark.x < 50 || shark.x > width - 50)
+      shark.dx *= -1
+    if (shark.y < 50 || shark.y > height - 50)
+      shark.dy *= -1
+  }
+}
+
+// 🚩 Vẽ cá mập
+// 🚩 Vẽ cá mập
+function drawShark() {
+  if (!sharkImg.complete)
+    return
+
+  ctx.save()
+  ctx.translate(shark.x, shark.y)
+
+  // Xoay theo hướng bơi
+  ctx.rotate(shark.angle)
+
+  // Nếu bơi sang trái (dx < 0) → lật dọc để bụng luôn ở dưới
+  if (shark.dx < 0) {
+    ctx.scale(1, -1)
+  }
+
+  const size = 120
+  ctx.drawImage(sharkImg, -size / 2, -size / 2, size, size)
+
+  ctx.restore()
+}
+
 function animate() {
   ctx.clearRect(0, 0, width, height)
   updateBubbles()
   updateParticles()
+  updateShark()
+
   bubbles.forEach(drawBubble)
   drawParticles()
+  drawShark()
 
-  // Vẽ chữ cái cần chọn hiện tại ở nền canvas
+  // vẽ chữ cái target mờ nền
   ctx.save()
   ctx.font = `${Math.min(width, height) * 0.25}px sans-serif`
-  ctx.fillStyle = 'rgba(100, 100, 255, 0.1)' // xanh nhạt, mờ nhẹ
+  ctx.fillStyle = 'rgba(100, 100, 255, 0.1)'
   ctx.textAlign = 'center'
   ctx.textBaseline = 'middle'
   ctx.fillText(alphabet[currentIndex] || '', width / 2, height / 2)
@@ -195,6 +288,7 @@ function animate() {
 
   requestAnimationFrame(animate)
 }
+
 function getThreeBubblesForCurrent() {
   const correctLetter = alphabet[currentIndex]
   const otherLetters: string[] = alphabet.filter((l, i) => i !== currentIndex)
@@ -222,21 +316,7 @@ function nextRound() {
     gameOver.value = true
     return
   }
-
   bubbles = getThreeBubblesForCurrent()
-
-  // Chỉ phát âm nếu đã có hành động người dùng
-  if (userInteracted) {
-    const instructionSound = new Howl({ src: ['/sounds/vietnamese/words/be-hay-bam-vao-chu.mp3'], volume: 1.5 })
-    instructionSound.play()
-
-    setTimeout(() => {
-      const letter = alphabet[currentIndex]
-      const filename = letterToFilename(letter)
-      const letterSound = new Howl({ src: [`/sounds/vietnamese/alphabet/${filename}.mp3`], volume: 1.5 })
-      letterSound.play()
-    }, 1500)
-  }
 }
 
 function handleClick(e: MouseEvent) {
@@ -254,23 +334,15 @@ function handleClick(e: MouseEvent) {
   for (let i = 0; i < bubbles.length; i++) {
     const b = bubbles[i]
     const dist = Math.hypot(b.x - clickX, b.y - clickY)
-    const isMobile = window.innerWidth < 768
-    const hitRadius = b.radius * (isMobile ? 1.3 : 1.0)
-    if (!b.isPopped && dist < hitRadius) {
+    if (!b.isPopped && dist < b.radius) {
       if (b.letter === alphabet[currentIndex]) {
-        b.isPopped = true
-        createParticles(b.x, b.y, b.color)
-        correctSound.play()
-        currentIndex++
-        setTimeout(nextRound, 400) // delay nhẹ để nhìn thấy hiệu ứng
+        shark.target = b // cá mập bơi tới bóng đúng
+        return
       }
       else {
         wrongSound.play()
         b.isWrong = true
         b.wrongTimer = 120
-        const angle = Math.random() * Math.PI * 2
-        b.dx = Math.cos(angle) * 5
-        b.dy = Math.sin(angle) * 5
       }
     }
   }
@@ -294,7 +366,6 @@ function resize() {
     ctx = canvas.value.getContext('2d')!
   }
 
-  // Đặt lại vị trí các quả bong bóng nếu cần
   bubbles.forEach((b) => {
     b.x = Math.min(Math.max(b.x, b.radius), width - b.radius)
     b.y = Math.min(Math.max(b.y, b.radius), height - b.radius)
@@ -303,19 +374,24 @@ function resize() {
 
 onMounted(() => {
   alphabet = data.value?.split('') || []
-  alphabet = shuffleArray(alphabet) // 🔹 Xáo trộn trước khi chơi
+  alphabet = shuffleArray(alphabet)
 
   ctx = canvas.value!.getContext('2d')!
   resize()
   window.addEventListener('click', handleClick)
   window.addEventListener('resize', resize)
 
-  // Bắt đầu game sau tương tác đầu tiên
+  // load shark
+  sharkImg = new Image()
+  sharkImg.src = '/svg/shark.svg'
+  shark.x = width / 2
+  shark.y = height / 2
+
+  // Bắt đầu sau tương tác đầu tiên
   const waitForInteraction = () => {
     if (!userInteracted) {
       userInteracted = true
       window.removeEventListener('click', waitForInteraction)
-      window.removeEventListener('touchstart', waitForInteraction)
       window.removeEventListener('touchstart', waitForInteraction)
       restartGame()
     }
@@ -333,10 +409,17 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="relative overflow-hidden bg-gradient-to-br from-sky-100 via-blue-100 to-green-100 pt-16" :style="{ height: `${canvasHeight}px` }">
+  <div
+    class="relative overflow-hidden bg-gradient-to-br from-sky-100 via-blue-100 to-green-100 pt-16"
+    :style="{ height: `${canvasHeight}px` }"
+  >
     <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full" />
-
-    <SuccessMessage v-if="gameOver" message="Bé đã hoàn thành rồi!" class="absolute inset-0 flex flex-col items-center justify-center" @click="restartGame" />
+    <SuccessMessage
+      v-if="gameOver"
+      message="Bé đã hoàn thành rồi!"
+      class="absolute inset-0 flex flex-col items-center justify-center"
+      @click="restartGame"
+    />
   </div>
 </template>
 
