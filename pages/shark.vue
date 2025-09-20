@@ -24,6 +24,19 @@ let currentIndex = 0
 const colors = ['#ff6b6b', '#6bcBef', '#ffe66d', '#48dbfb', '#1dd1a1', '#f368e0']
 
 // Cá mập
+// SVG string (gradient xanh dương → xanh đậm)
+const sharkSvg = `
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+  <defs>
+    <linearGradient id="sharkGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00008b"/>   <!-- xanh dương nhạt -->
+      <stop offset="100%" stop-color="#00bfff"/> <!-- xanh đậm -->
+    </linearGradient>
+  </defs>
+  <path fill="url(#sharkGradient)" d="M15.56 9.09C14.66 7.18 12.54 6 11 6c.47 1.4.28 2.57-.05 3.43C8.45 10 6 11 6 11S3 7 1 7l2 6l-1 4c2 0 4-3 4-3s5 2 8 2v2c.65 0 1.91-.83 2.73-2.23c1.24-.21 2.27-.56 3.14-.96c-.15-.18-.34-.37-.59-.51c-.65-.39-1.46-.63-2.28-.8c.82-.16 1.67-.28 2.59-.15c.46.06.95.19 1.41.51c.1.06.17.14.24.19C22.4 13.26 23 12.44 23 12c0-.87-3.81-2.5-7.44-2.91M18 12c-.55 0-1-.45-1-1c0-.24.1-.45.23-.62c.61.12 1.2.29 1.74.46c.03.05.03.1.03.16c0 .55-.45 1-1 1"/>
+</svg>
+`
+
 let sharkImg: HTMLImageElement
 const shark: any = {
   x: 0,
@@ -36,34 +49,24 @@ const shark: any = {
 }
 
 function createBubble(letter: string) {
-  const angle = Math.random() * Math.PI * 2
-  const speed = 10 + Math.random() * 5
-  const normalSpeed = 0.5 + Math.random() * 1.5
+  const radiusBase = alphabet.length <= 10 ? 60 : window.innerWidth < 768 ? 50 : 60
+  const radiusVariation = alphabet.length <= 10 ? 25 : window.innerWidth < 768 ? 20 : 30
+  const radius = radiusBase + Math.random() * radiusVariation
 
-  const fewBubbles = alphabet.length <= 10
-  let baseRadius = 60
-  let radiusVariation = 30
-
-  if (fewBubbles) {
-    baseRadius = 75
-    radiusVariation = 25
-  }
-  else if (window.innerWidth < 768) {
-    baseRadius = 50
-    radiusVariation = 20
-  }
+  const dyFast = 5 + Math.random() * 3 // tốc độ bắn xuống nhanh
 
   return {
     letter,
-    x: width / 2,
-    y: height / 2,
-    radius: baseRadius + Math.random() * radiusVariation,
-    baseRadius,
+    x: Math.random() * width,
+    y: -radius - Math.random() * 50,
+    radius,
+    baseRadius: radiusBase,
     scale: 1,
     color: colors[Math.floor(Math.random() * colors.length)],
-    dx: Math.cos(angle) * speed,
-    dy: Math.sin(angle) * speed,
-    normalSpeed,
+    dx: (Math.random() - 0.5) * 2,
+    dy: dyFast,
+    initialDy: dyFast, // lưu tốc độ khởi tạo
+    normalSpeed: 0.5 + Math.random() * 1.5,
     isPopped: false,
     popTime: 0,
     decelerated: false,
@@ -144,25 +147,36 @@ function updateBubbles() {
   bubbles.forEach((b) => {
     if (b.isPopped)
       return
+
     b.x += b.dx
     b.y += b.dy
 
-    if (!b.decelerated) {
-      b.dx *= 0.95
-      b.dy *= 0.95
-      if (Math.abs(b.dx) < b.normalSpeed && Math.abs(b.dy) < b.normalSpeed) {
-        const angle = Math.atan2(b.dy, b.dx)
-        b.dx = Math.cos(angle) * b.normalSpeed
-        b.dy = Math.sin(angle) * b.normalSpeed
-        b.decelerated = true
+    // Chọn tỉ lệ slowdown dựa trên orientation
+    const slowdownRatio = width > height ? 1 / 5 : 1 / 10
+    const slowdownHeight = height * slowdownRatio
+
+    if (b.y > slowdownHeight && b.dy > b.normalSpeed) {
+      const factor = 0.95 // giảm tốc dần
+      b.dy *= factor
+      if (b.dy < b.normalSpeed)
+        b.dy = b.normalSpeed
+    }
+
+    // Đảo chiều ngang nếu chạm trái/phải
+    if (b.x - b.radius < 0 || b.x + b.radius > width)
+      b.dx *= -1
+
+    // Khi bóng ra khỏi đáy màn hình
+    if (b.y - b.radius > height) {
+      createParticles(b.x, height - b.radius, b.color)
+      b.isPopped = true
+      if (b.letter === alphabet[currentIndex]) {
+        currentIndex++
+        nextRound()
       }
     }
 
-    if (b.x - b.radius < 0 || b.x + b.radius > width)
-      b.dx *= -1
-    if (b.y - b.radius < 0 || b.y + b.radius > height)
-      b.dy *= -1
-
+    // Hiệu ứng bóng sai
     if (b.isWrong) {
       b.scale = 1 + 0.2 * Math.sin((120 - b.wrongTimer) / 5)
       b.wrongTimer--
@@ -175,6 +189,9 @@ function updateBubbles() {
       }
     }
   })
+
+  // Loại bỏ những quả bóng đã “popped”
+  bubbles = bubbles.filter(b => !b.isPopped)
 }
 
 function updateParticles() {
@@ -187,19 +204,17 @@ function updateParticles() {
 }
 
 // 🚩 Update cá mập
-// 🚩 Update cá mập
-// 🚩 Update cá mập
 let sharkWanderTimer = 0
 let sharkWaveTime = 0
 
 function updateShark() {
   if (shark.target && !shark.target.isPopped) {
+    // bơi theo target (giữ nguyên)
     const dx = shark.target.x - shark.x
     const dy = shark.target.y - shark.y
     const dist = Math.hypot(dx, dy)
 
     if (dist < shark.target.radius) {
-      // Chạm bóng → nổ
       shark.target.isPopped = true
       createParticles(shark.target.x, shark.target.y, shark.target.color)
       correctSound?.play()
@@ -218,12 +233,12 @@ function updateShark() {
     }
   }
   else {
-    // 🚩 Chế độ bơi tự do (không có target)
+    // bơi tự do
     if (sharkWanderTimer <= 0) {
       const angle = Math.random() * Math.PI * 2
       shark.dx = Math.cos(angle) * (1 + Math.random() * 0.5)
       shark.dy = Math.sin(angle) * (1 + Math.random() * 0.5)
-      sharkWanderTimer = 120 + Math.random() * 120 // 2–4 giây
+      sharkWanderTimer = 120 + Math.random() * 120
     }
     sharkWanderTimer--
 
@@ -233,18 +248,48 @@ function updateShark() {
     // lượn sóng nhẹ
     sharkWaveTime += 0.05
     const baseAngle = Math.atan2(shark.dy, shark.dx)
-    const waveOffset = Math.sin(sharkWaveTime) * 0.2 // biên độ ~0.2 rad ≈ 11°
+    const waveOffset = Math.sin(sharkWaveTime) * 0.2
     shark.angle = baseAngle + waveOffset
 
-    // tránh cá mập bơi ra ngoài màn hình
-    if (shark.x < 50 || shark.x > width - 50)
-      shark.dx *= -1
-    if (shark.y < 50 || shark.y > height - 50)
-      shark.dy *= -1
+    // 🚩 Xử lý khi cá mập kẹt cạnh/góc
+    const margin = 50
+    let stuck = false
+    if (shark.x < margin)
+      stuck = true
+    if (shark.x > width - margin)
+      stuck = true
+    if (shark.y < margin)
+      stuck = true
+    if (shark.y > height - margin)
+      stuck = true
+
+    if (stuck) {
+      // Tính vector về trung tâm
+      const dx = width / 2 - shark.x
+      const dy = height / 2 - shark.y
+      const dist = Math.hypot(dx, dy)
+
+      // Reset dx/dy để thoát kẹt
+      shark.dx = (dx / dist) * shark.speed
+      shark.dy = (dy / dist) * shark.speed
+
+      // Dịch vị trí một chút về trung tâm ngay lập tức để không còn dính biên
+      shark.x += shark.dx
+      shark.y += shark.dy
+    }
+
+    // Giữ biên màn hình
+    if (shark.x < 0)
+      shark.x = 0
+    if (shark.x > width)
+      shark.x = width
+    if (shark.y < 0)
+      shark.y = 0
+    if (shark.y > height)
+      shark.y = height
   }
 }
 
-// 🚩 Vẽ cá mập
 // 🚩 Vẽ cá mập
 function drawShark() {
   if (!sharkImg.complete)
@@ -301,7 +346,19 @@ function getThreeBubblesForCurrent() {
 
   const letters = [correctLetter, ...wrongLetters]
   const shuffled = letters.sort(() => Math.random() - 0.5)
-  return shuffled.map(createBubble)
+
+  // Vị trí cố định: trái – giữa – phải
+  const positionsX = [width * 0.2, width * 0.5, width * 0.8]
+
+  // Lấy 3 màu khác nhau từ colors
+  const shuffledColors = shuffleArray(colors).slice(0, 3)
+
+  return shuffled.map((letter, i) => {
+    const bubble = createBubble(letter)
+    bubble.x = positionsX[i] + (Math.random() - 0.5) * 30 // lệch ±30px
+    bubble.color = shuffledColors[i] // gán màu khác nhau
+    return bubble
+  })
 }
 
 function shuffleArray<T>(arr: T[]): T[] {
@@ -381,23 +438,18 @@ onMounted(() => {
   window.addEventListener('click', handleClick)
   window.addEventListener('resize', resize)
 
-  // load shark
+  // load shark từ SVG string
   sharkImg = new Image()
-  sharkImg.src = '/svg/shark.svg'
+  sharkImg.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(sharkSvg)}`
+
   shark.x = width / 2
   shark.y = height / 2
 
-  // Bắt đầu sau tương tác đầu tiên
-  const waitForInteraction = () => {
-    if (!userInteracted) {
-      userInteracted = true
-      window.removeEventListener('click', waitForInteraction)
-      window.removeEventListener('touchstart', waitForInteraction)
-      restartGame()
-    }
-  }
-  window.addEventListener('click', waitForInteraction)
-  window.addEventListener('touchstart', waitForInteraction)
+  // Tự động bắt đầu game sau 0.5s
+  setTimeout(() => {
+    userInteracted = true
+    restartGame()
+  }, 500)
 
   animate()
 })
@@ -413,11 +465,21 @@ onUnmounted(() => {
     class="relative overflow-hidden bg-gradient-to-br from-sky-100 via-blue-100 to-green-100 pt-16"
     :style="{ height: `${canvasHeight}px` }"
   >
-    <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full" />
+    <canvas ref="canvas" class="absolute top-0 left-0 w-full h-full z-10" />
+
+    <!-- nền san hô -->
+    <div class="absolute bottom-0 left-0 w-full z-0 pointer-events-none">
+      <img
+        src="/coral.png"
+        alt="coral"
+        class="w-full h-auto object-cover opacity-40"
+      >
+    </div>
+
     <SuccessMessage
       v-if="gameOver"
       message="Bé đã hoàn thành rồi!"
-      class="absolute inset-0 flex flex-col items-center justify-center"
+      class="absolute inset-0 flex flex-col items-center justify-center z-20"
       @click="restartGame"
     />
   </div>
