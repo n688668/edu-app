@@ -4,7 +4,8 @@ useHead({
 })
 
 const items = [
-  { title: 'Đếm số', icon: '🔢', path: '/learn-math/counting' },
+  { title: 'Số lượng', icon: '🔢', path: '/learn-math/counting' },
+  { title: 'Số 1 - 100', icon: '🔢', path: '/learn-math/numbers' },
   { title: 'Cộng đơn giản', icon: '➕', path: '/learn-math/addition' },
   { title: 'Trừ đơn giản', icon: '➖', path: '/learn-math/subtraction' },
   { title: 'So sánh số lượng', icon: '⚖️', path: '/learn-math/comparison' },
