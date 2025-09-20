@@ -13,7 +13,6 @@ let wrongSound: Howl | null = null
 const canvas = ref<HTMLCanvasElement | null>(null)
 const gameOver = ref(false)
 const canvasHeight = ref(0)
-let userInteracted = false
 
 let ctx: CanvasRenderingContext2D
 let width: number, height: number
@@ -446,10 +445,7 @@ onMounted(() => {
   shark.y = height / 2
 
   // Tự động bắt đầu game sau 0.5s
-  setTimeout(() => {
-    userInteracted = true
-    restartGame()
-  }, 500)
+  setTimeout(restartGame, 500)
 
   animate()
 })
