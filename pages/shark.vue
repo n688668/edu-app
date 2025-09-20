@@ -21,6 +21,8 @@ let particles: any[] = []
 let alphabet: string[] = []
 let currentIndex = 0
 const colors = ['#ff6b6b', '#6bcBef', '#ffe66d', '#48dbfb', '#1dd1a1', '#f368e0']
+// cá mập đã max size → đổi màu
+const colorPalette = ['#ff6b6b', '#6bcBef', '#ffe66d', '#48dbfb', '#1dd1a1', '#f368e0', '#ff922b']
 
 // Cá mập
 // SVG string (gradient xanh dương → xanh đậm)
@@ -47,9 +49,20 @@ const shark: any = {
   target: null as any,
 }
 
+const sharkSize = ref(80) // kích thước hiện tại
+const sharkMinSize = 80 // min size
+const sharkMaxSize = 200 // max size
+const sharkGrowStep = 20 // mỗi lần ăn tăng bao nhiêu
+const sharkShrinkSpeed = 0.01 // tốc độ co khi bắt đầu round mới
+let sharkBounce = 0 // hiệu ứng bập bùng (scale)
+const sharkBounceStep = 0.15 // mức phóng đại tạm thời khi ăn (15%)
+let sharkBounceTime = 0 // thời gian hiệu ứng bập bùng
+const sharkBounceDuration = 20 // số frame bập bùng
+
 function createBubble(letter: string) {
-  const radiusBase = alphabet.length <= 10 ? 60 : window.innerWidth < 768 ? 50 : 60
-  const radiusVariation = alphabet.length <= 10 ? 25 : window.innerWidth < 768 ? 20 : 30
+  // giảm base và variation
+  const radiusBase = alphabet.length <= 10 ? 50 : window.innerWidth < 768 ? 40 : 50
+  const radiusVariation = alphabet.length <= 10 ? 20 : window.innerWidth < 768 ? 10 : 20
   const radius = radiusBase + Math.random() * radiusVariation
 
   const dyFast = 5 + Math.random() * 3 // tốc độ bắn xuống nhanh
@@ -202,6 +215,36 @@ function updateParticles() {
   })
 }
 
+// helper: adjust brightness
+function adjustColor(hex: string, percent: number) {
+  const num = Number.parseInt(hex.replace('#', ''), 16)
+  let r = (num >> 16) & 255
+  let g = (num >> 8) & 255
+  let b = num & 255
+
+  r = Math.min(255, Math.max(0, r + (r * percent)))
+  g = Math.min(255, Math.max(0, g + (g * percent)))
+  b = Math.min(255, Math.max(0, b + (b * percent)))
+
+  return `rgb(${r},${g},${b})`
+}
+
+function updateSharkColor() {
+  // chọn 1 màu base từ palette
+  const base = colorPalette[Math.floor(Math.random() * colorPalette.length)]
+
+  // tạo 2 màu nhạt / đậm hơn
+  const lighter = adjustColor(base, 0.3) // sáng hơn 30%
+  const darker = adjustColor(base, -0.3) // tối hơn 30%
+
+  const newSvg = sharkSvg
+    .replace(/<stop offset="0%" stop-color=".*?"\/>/, `<stop offset="0%" stop-color="${darker}"/>`)
+    .replace(/<stop offset="100%" stop-color=".*?"\/>/, `<stop offset="100%" stop-color="${lighter}"/>`)
+
+  sharkImg = new Image()
+  sharkImg.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(newSvg)}`
+}
+
 // 🚩 Update cá mập
 let sharkWanderTimer = 0
 let sharkWaveTime = 0
@@ -218,6 +261,18 @@ function updateShark() {
       createParticles(shark.target.x, shark.target.y, shark.target.color)
       correctSound?.play()
       currentIndex++
+
+      // tăng kích thước nếu chưa đạt max, nếu đã max thì đổi màu
+      if (sharkSize.value < sharkMaxSize - 10) {
+        sharkSize.value = Math.min(sharkSize.value + sharkGrowStep, sharkMaxSize)
+      }
+      else {
+        updateSharkColor()
+      }
+
+      // bật hiệu ứng bập bùng
+      sharkBounceTime = 0
+
       setTimeout(nextRound, 400)
       shark.target = null
       shark.dx = 0
@@ -287,6 +342,12 @@ function updateShark() {
     if (shark.y > height)
       shark.y = height
   }
+
+  if (sharkBounceTime < sharkBounceDuration) {
+    sharkBounceTime++
+    const t = sharkBounceTime / sharkBounceDuration
+    sharkBounce = Math.sin(t * Math.PI) * sharkBounceStep
+  }
 }
 
 // 🚩 Vẽ cá mập
@@ -305,8 +366,8 @@ function drawShark() {
     ctx.scale(1, -1)
   }
 
-  const size = 120
-  ctx.drawImage(sharkImg, -size / 2, -size / 2, size, size)
+  const finalSize = sharkSize.value * (1 + sharkBounce)
+  ctx.drawImage(sharkImg, -finalSize / 2, -finalSize / 2, finalSize, finalSize)
 
   ctx.restore()
 }
@@ -372,7 +433,34 @@ function nextRound() {
     gameOver.value = true
     return
   }
+
+  // giảm kích thước dần về minSize
+  const shrinkInterval = setInterval(() => {
+    if (sharkSize.value > sharkMinSize) {
+      sharkSize.value = Math.max(sharkSize.value - sharkShrinkSpeed, sharkMinSize)
+    }
+    else {
+      clearInterval(shrinkInterval)
+    }
+  }, 16)
+
   bubbles = getThreeBubblesForCurrent()
+
+  const instructionSound = new Howl({ src: ['/sounds/vietnamese/words/be-hay-bam-vao-chu.mp3'], volume: 1.5 })
+  instructionSound.play()
+
+  setTimeout(() => {
+    const letter = alphabet[currentIndex]
+    const filename = letterToFilename(letter)
+
+    const folder = /\d/.test(letter) ? 'numbers' : 'alphabet'
+
+    const letterSound = new Howl({
+      src: [`/sounds/vietnamese/${folder}/${filename}.mp3`],
+      volume: 1.5,
+    })
+    letterSound.play()
+  }, 1500)
 }
 
 function handleClick(e: MouseEvent) {
