@@ -67,7 +67,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="fixed top-1 left-1 flex items-center justify-between z-[1] overflow-clip">
+  <header class="fixed top-1 left-1 flex items-center justify-between z-20 overflow-clip">
     <div class="flex items-center" :class="route.path !== '/' ? 'w-full' : ''">
       <BackButton v-if="route.path !== '/'" />
     </div>

@@ -49,8 +49,10 @@ onMounted(() => {
   })
 
   function resizeCanvas() {
-    canvas.value!.width = window.innerWidth
-    canvas.value!.height = window.innerHeight
+    if (!canvas.value)
+      return
+    canvas.value.width = window.innerWidth
+    canvas.value.height = window.innerHeight
     generateHeart()
   }
 
@@ -98,8 +100,10 @@ onMounted(() => {
   }
 
   function animate(time = 0) {
+    if (!canvas.value)
+      return // ✅ fix nhỏ: check null trước
     requestAnimationFrame(animate)
-    ctx.clearRect(0, 0, canvas.value!.width, canvas.value!.height)
+    ctx.clearRect(0, 0, canvas.value.width, canvas.value.height)
 
     for (const p of particles) {
       const offset = Math.sin(time * 0.004 + p.phase) * 4
