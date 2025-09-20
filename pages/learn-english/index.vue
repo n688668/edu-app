@@ -24,6 +24,7 @@ const items = [
     path: '/learn-english/word-match',
     icon: '🧩',
   },
+  { title: 'Thực vật', icon: '🌱', path: '/learn-english/plants' },
   { title: 'Game bong bóng', icon: '🫧', path: '/learn-english/game-bubble' },
 ]
 </script>

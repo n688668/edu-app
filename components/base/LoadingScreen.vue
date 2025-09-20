@@ -1,6 +1,6 @@
 <template>
   <!-- Loading Screen -->
-  <div class="absolute inset-0 flex flex-col items-center justify-center bg-orange-100 z-20">
+  <div class="absolute inset-0 flex flex-col items-center justify-center bg-orange-100 z-30">
     <div class="text-6xl animate-bounce mb-4">
       📚✨
     </div>

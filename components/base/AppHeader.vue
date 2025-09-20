@@ -67,7 +67,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <header class="fixed top-1 left-1 flex items-center justify-between z-[1] overflow-clip">
+  <header class="fixed top-1 left-1 flex items-center justify-between z-20 overflow-clip">
     <div class="flex items-center" :class="route.path !== '/' ? 'w-full' : ''">
       <BackButton v-if="route.path !== '/'" />
     </div>
@@ -77,7 +77,7 @@ onUnmounted(() => {
         class="bg-white text-pink-600 font-semibold px-4 py-2 rounded-xl shadow hover:bg-pink-100 transition"
         @click="login"
       >
-        Đăng nhập với Google
+        Google
       </button>
       <div v-else class="relative flex items-center gap-3">
         <div class="flex items-center gap-3 cursor-pointer" @click.stop="showLogout = !showLogout">

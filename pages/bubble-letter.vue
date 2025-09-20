@@ -1,9 +1,11 @@
 <script lang="ts" setup>
 import { Howl } from 'howler'
 
-const props = defineProps<{
-  data?: any
-}>()
+useHead({
+  title: 'Bong bóng',
+})
+
+const data = ref('012345679AĂÂBCDĐEÊGHIKLMNOÔƠPQRSTUƯVXY')
 
 let correctSound: Howl | null = null
 let wrongSound: Howl | null = null
@@ -32,12 +34,12 @@ function createBubble(letter: string) {
 
   // Nếu ít chữ cái thì tăng kích thước, bất kể thiết bị
   if (fewBubbles) {
-    baseRadius = 55
+    baseRadius = 75
     radiusVariation = 25
   }
   else if (window.innerWidth < 768) {
     // Trường hợp mobile nhiều chữ cái
-    baseRadius = 25
+    baseRadius = 50
     radiusVariation = 20
   }
 
@@ -282,7 +284,7 @@ function restartGame() {
 }
 
 function resize() {
-  canvasHeight.value = window.innerHeight - 75
+  canvasHeight.value = window.innerHeight
   width = window.innerWidth
   height = canvasHeight.value
 
@@ -300,7 +302,7 @@ function resize() {
 }
 
 onMounted(() => {
-  alphabet = props?.data?.split('') || []
+  alphabet = data.value?.split('') || []
   alphabet = shuffleArray(alphabet) // 🔹 Xáo trộn trước khi chơi
 
   ctx = canvas.value!.getContext('2d')!
