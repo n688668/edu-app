@@ -14,7 +14,7 @@ const learningItems = [
   { title: 'Thẻ 2', icon: '🪁', path: '/cards-2' },
   { title: 'Bong bóng', icon: '🫧', path: '/bubble-letter' },
   { title: 'Cá mập', icon: '🦈', path: '/shark' },
-  { title: 'Trái tim 1', icon: '❤️', path: '/heart' },
+  // { title: 'Trái tim 1', icon: '❤️', path: '/heart' },
   { title: 'Trái tim 2', icon: '💗', path: '/pixi-heart' },
   { title: 'Tô màu', icon: '🎨', path: '/fill-colour' },
   { title: 'Thẻ 1.1', icon: '🃏', path: '/game-cards-1' },
