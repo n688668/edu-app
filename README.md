@@ -89,7 +89,7 @@ firebase init
 firebase deploy
 ```
 
-# firebase.json default site redirect to kidskids site
+# firebase.json default site redirect to site
 ```
 firebase deploy --only hosting:nuxtabc
 
@@ -104,7 +104,7 @@ firebase deploy --only hosting:nuxtabc
     "redirects": [
       {
         "source": "/**",
-        "destination": "https://kidskids.web.app",
+        "destination": "https://site.web.app",
         "type": 301
       }
     ],
