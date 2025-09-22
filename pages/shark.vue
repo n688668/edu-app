@@ -164,11 +164,11 @@ function updateBubbles() {
     b.y += b.dy
 
     // Chọn tỉ lệ slowdown dựa trên orientation
-    const slowdownRatio = width > height ? 1 / 5 : 1 / 10
+    const slowdownRatio = width > height ? 1 / 10 : 1 / 20
     const slowdownHeight = height * slowdownRatio
 
     if (b.y > slowdownHeight && b.dy > b.normalSpeed) {
-      const factor = 0.95 // giảm tốc dần
+      const factor = 0.75 // giảm tốc dần
       b.dy *= factor
       if (b.dy < b.normalSpeed)
         b.dy = b.normalSpeed
