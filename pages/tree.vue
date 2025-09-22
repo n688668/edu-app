@@ -24,6 +24,15 @@ interface Drop {
 let drops: Drop[] = []
 let wateringInProgress = false
 
+// hiệu ứng ripple (highlight)
+interface Ripple {
+  x: number
+  y: number
+  radius: number
+  alpha: number
+}
+let ripples: Ripple[] = []
+
 function playSound(file: string) {
   const sound = new Howl({ src: `/sounds/${file}.mp3` })
   sound.play()
@@ -72,6 +81,15 @@ function draw() {
     context.ellipse(d.x, d.y, d.radius * 0.7, d.radius, 0, 0, Math.PI * 2)
     context.fill()
   })
+
+  // vẽ ripple (highlight)
+  ripples.forEach((r) => {
+    context.beginPath()
+    context.arc(r.x, r.y, r.radius, 0, Math.PI * 2)
+    context.strokeStyle = `rgba(0,150,255,${r.alpha})`
+    context.lineWidth = 3
+    context.stroke()
+  })
 }
 
 function animate() {
@@ -80,10 +98,18 @@ function animate() {
   const cvs = canvas.value
   const midY = cvs.height / 2
 
+  // update drops
   drops.forEach((d) => {
     d.y += d.speed
   })
   drops = drops.filter(d => d.y < midY)
+
+  // update ripples
+  ripples.forEach((r) => {
+    r.radius += 3
+    r.alpha -= 0.02
+  })
+  ripples = ripples.filter(r => r.alpha > 0)
 
   // khi tưới và tất cả giọt nước biến mất → đổi trạng thái cây
   if (wateringInProgress && drops.length === 0) {
@@ -109,17 +135,21 @@ function resizeCanvas() {
   draw()
 }
 
-function waterPlant() {
+function waterPlant(x: number, y: number) {
   if (wateringInProgress)
     return
   playSound('water')
   wateringInProgress = true
 
+  // ripple highlight tại vị trí click
+  ripples.push({ x, y, radius: 0, alpha: 0.6 })
+
   if (canvas.value) {
+    const centerX = canvas.value.width / 2
     for (let i = 0; i < 20; i++) {
       drops.push({
-        x: canvas.value.width / 2 + (Math.random() * 200 - 100), // tán rộng hơn
-        y: 0,
+        x: centerX + (Math.random() * 200 - 100), // tán rộng hơn quanh giữa cây
+        y: 0, // bắt đầu từ trên cùng
         speed: 4 + Math.random() * 2,
         radius: 5 + Math.random() * 3,
       })
@@ -132,12 +162,19 @@ function resetGame() {
   health.value = 'normal'
   drops = []
   wateringInProgress = false
+  ripples = []
   draw()
 }
 
 onMounted(() => {
-  if (canvas.value)
+  if (canvas.value) {
     ctx.value = canvas.value.getContext('2d')
+    canvas.value.addEventListener('click', (e) => {
+      if (state.value < stages.length - 1) {
+        waterPlant(e.offsetX, e.offsetY)
+      }
+    })
+  }
   resizeCanvas()
   loadImages(() => draw())
   animate()
@@ -153,25 +190,17 @@ onMounted(() => {
 
     <!-- Controls -->
     <div
-      class="absolute z-30 flex bg-white/80 rounded-lg shadow p-3 gap-2"
+      class="absolute z-30 flex p-3 gap-2"
       :class="orientation === 'portrait'
         ? 'bottom-4 left-1/2 -translate-x-1/2 flex-row'
         : 'right-4 top-1/2 -translate-y-1/2 flex-col'"
     >
       <button
-        v-if="state < stages.length - 1"
-        class="bg-pink-300 px-3 py-2 rounded shadow text-sm"
-        @click="waterPlant"
-      >
-        Tưới cây
-      </button>
-
-      <button
-        v-else
-        class="bg-green-400 px-3 py-2 rounded shadow text-sm"
+        v-if="state >= stages.length - 1"
+        class="px-8 py-4 text-2xl font-bold bg-pink-500 text-white rounded-full shadow-lg hover:bg-pink-600 transition duration-300 active:scale-95"
         @click="resetGame"
       >
-        Chơi lại
+        🔁 Chơi Lại
       </button>
     </div>
   </div>
