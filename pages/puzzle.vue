@@ -14,6 +14,7 @@ const pointerOffset = { x: 0, y: 0 }
 let animationFrame = 0
 let sourceImage: HTMLImageElement | null = null
 const imageLoaded = ref(false)
+const isLoading = ref(false)
 const difficulty = ref<number>(2)
 const orientation = ref<'portrait' | 'landscape'>('portrait')
 
@@ -253,10 +254,13 @@ function onFileChange(e: Event) {
   const input = e.target as HTMLInputElement
   if (!input.files || !input.files[0])
     return
+
+  isLoading.value = true
   const file = input.files[0]
   const img = new Image()
   img.onload = () => {
     imageLoaded.value = true
+    isLoading.value = false
     const side = Math.min(img.width, img.height)
     const sx = (img.width - side) / 2
     const sy = (img.height - side) / 2
@@ -273,6 +277,9 @@ function onFileChange(e: Event) {
       resizeCanvas()
     }
     cropped.src = tmp.toDataURL()
+  }
+  img.onerror = () => {
+    isLoading.value = false
   }
   img.src = URL.createObjectURL(file)
 }
@@ -320,9 +327,12 @@ onBeforeUnmount(() => {
   <div
     class="relative flex items-center justify-center w-screen h-screen bg-gradient-to-br from-sky-100 via-blue-100 to-green-100"
   >
+    <!-- Loading -->
+    <LoadingScreen v-if="isLoading" />
+
     <!-- Nếu chưa chọn ảnh -->
     <div
-      v-if="!imageLoaded"
+      v-if="!imageLoaded && !isLoading"
       class="absolute inset-0 flex flex-col items-center justify-center z-20 text-center"
     >
       <h1 class="text-3xl font-bold text-gray-700 mb-6">
@@ -345,6 +355,23 @@ onBeforeUnmount(() => {
     <canvas v-show="imageLoaded" ref="canvas" class="touch-none z-10" />
 
     <!-- Thông báo hoàn thành -->
+    <!-- <div
+      v-if="gameOver && imageLoaded"
+      class="absolute inset-0 flex flex-col items-center justify-center z-20"
+    >
+      <div class="bg-white/80 p-6 rounded-2xl shadow-lg text-center">
+        <h2 class="text-2xl font-bold mb-2">Bé đã hoàn thành rồi! 🎉</h2>
+        <p class="mb-4">Chạm vào nút để chơi lại hoặc thay độ khó.</p>
+        <div class="flex gap-3 justify-center">
+          <button
+            class="px-4 py-2 rounded bg-blue-500 text-white"
+            @click="restartGame"
+          >
+            Chơi lại
+          </button>
+        </div>
+      </div>
+    </div> -->
 
     <SuccessMessage v-if="gameOver && imageLoaded" class="absolute inset-0 flex flex-col items-center justify-center z-20" @click="restartGame" />
 
