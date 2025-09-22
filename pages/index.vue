@@ -15,6 +15,7 @@ const learningItems = [
   { title: 'Bong bóng', icon: '🫧', path: '/bubble-letter' },
   { title: 'Cá mập', icon: '🦈', path: '/shark' },
   { title: 'Xếp hình', icon: '🎲', path: '/puzzle' },
+  { title: 'Trồng cây', icon: '🌱', path: '/tree' },
   { title: 'Trái tim', icon: '💗', path: '/pixi-heart' },
   { title: 'Tô màu', icon: '🎨', path: '/fill-colour' },
   { title: 'Thẻ 1.1', icon: '🃏', path: '/game-cards-1' },
