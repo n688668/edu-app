@@ -354,25 +354,6 @@ onBeforeUnmount(() => {
     <!-- Canvas game -->
     <canvas v-show="imageLoaded" ref="canvas" class="touch-none z-10" />
 
-    <!-- Thông báo hoàn thành -->
-    <!-- <div
-      v-if="gameOver && imageLoaded"
-      class="absolute inset-0 flex flex-col items-center justify-center z-20"
-    >
-      <div class="bg-white/80 p-6 rounded-2xl shadow-lg text-center">
-        <h2 class="text-2xl font-bold mb-2">Bé đã hoàn thành rồi! 🎉</h2>
-        <p class="mb-4">Chạm vào nút để chơi lại hoặc thay độ khó.</p>
-        <div class="flex gap-3 justify-center">
-          <button
-            class="px-4 py-2 rounded bg-blue-500 text-white"
-            @click="restartGame"
-          >
-            Chơi lại
-          </button>
-        </div>
-      </div>
-    </div> -->
-
     <SuccessMessage v-if="gameOver && imageLoaded" class="absolute inset-0 flex flex-col items-center justify-center z-20" @click="restartGame" />
 
     <!-- Controls -->
